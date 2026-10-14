@@ -281,3 +281,5 @@ main{position:relative;z-index:10;padding-bottom:30vh}
   .bird,.plane{display:none}
   .balloon{width:36px;height:44px;right:4%}
 }
+
+html,body{overflow-x:clip;max-width:100%}
