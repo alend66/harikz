@@ -2,7 +2,8 @@ const $ = s => document.querySelector(s);
 
 /* ---------- stars ---------- */
 const stars = $('#stars');
-for (let i = 0; i < 90; i++) {
+const small = innerWidth < 700;
+for (let i = 0; i < (small ? 35 : 55); i++) {
   const s = document.createElement('i');
   s.style.left = Math.random() * 100 + '%';
   s.style.top = Math.random() * 70 + '%';
@@ -11,7 +12,7 @@ for (let i = 0; i < 90; i++) {
   stars.appendChild(s);
 }
 const flies = $('#flies');
-for (let i = 0; i < 28; i++) {
+for (let i = 0; i < (small ? 8 : 14); i++) {
   const f = document.createElement('i');
   f.style.left = Math.random() * 100 + '%';
   f.style.top = 40 + Math.random() * 40 + '%';
@@ -50,57 +51,70 @@ const l1 = $('#l1'), l2 = $('#l2'), l3 = $('#l3'), road = $('#road');
 const w1 = $('#w1'), w2 = $('#w2'), beam = $('#beam');
 const kmEl = $('#hud-km'), stopEl = $('#hud-stop');
 
+const skyEl = $('#sky'), sceneEl = document.querySelector('.scene');
+let MAX = 1, VW = innerWidth, VH = innerHeight, tiles = [0, 0, 0], lastQ = -1;
+function measure() {
+  VW = innerWidth; VH = innerHeight;
+  MAX = document.documentElement.scrollHeight - VH;
+  tiles = [l1, l2, l3].map(el => el.offsetWidth / 2);
+}
+const setT = (el, v) => { if (el._t !== v) { el._t = v; el.style.transform = v; } };
+
 function frame() {
-  const max = document.documentElement.scrollHeight - innerHeight;
-  const y = scrollY, p = max > 0 ? clamp(y / max) : 0;
+  const y = scrollY, p = MAX > 0 ? clamp(y / MAX) : 0;
 
-  // sky + hills colours
-  const c = palette(p);
-  Object.entries(c).forEach(([k, v]) => root.setProperty('--' + k, v));
+  // sky + hills colours (only when the palette really changed; vars scoped to small subtrees)
+  const q = Math.round(p * 80);
+  if (q !== lastQ) {
+    lastQ = q;
+    const c = palette(q / 80);
+    skyEl.style.setProperty('--sky1', c.sky1); skyEl.style.setProperty('--sky2', c.sky2);
+    sceneEl.style.setProperty('--h1', c.h1); sceneEl.style.setProperty('--h2', c.h2); sceneEl.style.setProperty('--h3', c.h3);
+    root.setProperty('--ink', c.ink);
+  }
 
-  // sun arc (day) / moon arc (night)
+  // sun arc (day) / moon arc (night) via transforms (no layout)
   const ts = clamp(p / 0.72);
-  sun.style.left = 8 + 84 * ts + '%';
-  sun.style.top = 60 - Math.sin(Math.PI * ts) * 48 + '%';
-  sun.style.opacity = 1 - clamp((p - 0.62) / 0.1);
-  const low = 1 - Math.sin(Math.PI * ts);
-  sun.style.filter = `hue-rotate(${-low * 25}deg) saturate(${1 + low})`;
+  setT(sun, `translate3d(${(0.08 + 0.84 * ts) * VW}px,${(0.60 - Math.sin(Math.PI * ts) * 0.48) * VH}px,0) translate(-50%,-50%)`);
+  sun.style.opacity = (1 - clamp((p - 0.62) / 0.1)).toFixed(2);
   const tm = clamp((p - 0.72) / 0.28);
-  moon.style.left = 18 + 64 * tm + '%';
-  moon.style.top = 46 - Math.sin(Math.PI * tm) * 26 + '%';
-  moon.style.opacity = clamp((p - 0.7) / 0.08);
-  starsEl.style.opacity = clamp((p - 0.72) / 0.16);
-  clouds.style.opacity = 1 - clamp((p - 0.68) / 0.2) * 0.85;
+  setT(moon, `translate3d(${(0.18 + 0.64 * tm) * VW}px,${(0.46 - Math.sin(Math.PI * tm) * 0.26) * VH}px,0) translate(-50%,-50%)`);
+  moon.style.opacity = clamp((p - 0.7) / 0.08).toFixed(2);
+  starsEl.style.opacity = clamp((p - 0.72) / 0.16).toFixed(2);
+  clouds.style.opacity = (1 - clamp((p - 0.68) / 0.2) * 0.85).toFixed(2);
 
   // parallax: the world slides past the van
-  [[l1, 0.10], [l2, 0.22], [l3, 0.42]].forEach(([el, k]) => {
-    const tile = el.offsetWidth / 2;
-    el.style.transform = `translateX(${-((y * k) % tile)}px)`;
+  [[l1, 0.10], [l2, 0.22], [l3, 0.42]].forEach(([el, k], i) => {
+    setT(el, `translate3d(${-((y * k) % tiles[i])}px,0,0)`);
   });
-  root.setProperty('--rx', -(y * 0.9 % 80) + 'px');
+  road.style.setProperty('--rx', -(y * 0.9 % 80) + 'px');
 
   // wheels spin with scroll
-  const deg = y * 0.9;
-  w1.style.transform = w2.style.transform = `rotate(${deg}deg)`;
+  const rot = `rotate(${(y * 0.9) % 360}deg)`;
+  setT(w1, rot); setT(w2, rot);
 
   // headlights at night
-  beam.style.opacity = clamp((p - 0.74) / 0.1) * 0.9;
+  beam.style.opacity = (clamp((p - 0.74) / 0.1) * 0.9).toFixed(2);
 
   // odometer
-  kmEl.textContent = String(Math.round(p * 1240)).padStart(4, '0');
+  const km = String(Math.round(p * 1240)).padStart(4, '0');
+  if (kmEl.textContent !== km) kmEl.textContent = km;
 
   // extras: progress bar, fireflies, day-only flyers, van tilt on speed
-  prog.style.transform = `scaleX(${p})`;
-  flies.style.opacity = clamp((p - 0.76) / 0.12);
-  flyers.style.opacity = 1 - clamp((p - 0.62) / 0.15);
+  setT(prog, `scaleX(${p.toFixed(4)})`);
+  const fo = clamp((p - 0.76) / 0.12);
+  flies.style.opacity = fo.toFixed(2); flies.style.visibility = fo > 0 ? 'visible' : 'hidden';
+  const fl = 1 - clamp((p - 0.62) / 0.15);
+  flyers.style.opacity = fl.toFixed(2); flyers.style.visibility = fl > 0 ? 'visible' : 'hidden';
   const dy = y - lastY; lastY = y;
   vanEl.style.rotate = clamp(dy / 60, -1, 1) * -2.5 + 'deg';
   clearTimeout(frame.t); frame.t = setTimeout(() => { vanEl.style.rotate = '0deg'; }, 120);
 }
 let tick = false;
 addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(() => { frame(); tick = false; }); } }, { passive: true });
-addEventListener('resize', frame);
-frame();
+addEventListener('resize', () => { measure(); frame(); });
+addEventListener('load', () => { measure(); frame(); });
+measure(); frame();
 
 /* ---------- reveal on scroll ---------- */
 const io = new IntersectionObserver(es => es.forEach(e => {
@@ -138,8 +152,8 @@ addEventListener('message', e => {
 (function () {
   const cv = document.getElementById('vanimg'), img = new Image();
   img.onload = () => {
-    const w = img.naturalWidth, h = img.naturalHeight, ctx = cv.getContext('2d', { willReadFrequently: true });
-    cv.width = w; cv.height = h; ctx.drawImage(img, 0, 0);
+    let w, h; const ctx = cv.getContext('2d', { willReadFrequently: true });
+    const sc = Math.min(1, 900 / img.naturalWidth); w = Math.round(img.naturalWidth * sc); h = Math.round(img.naturalHeight * sc); cv.width = w; cv.height = h; ctx.drawImage(img, 0, 0, w, h);
     const id = ctx.getImageData(0, 0, w, h), d = id.data, seen = new Uint8Array(w * h), st = [];
     const bg = i => d[i * 4] > 238 && d[i * 4 + 1] > 238 && d[i * 4 + 2] > 238;
     const push = i => { if (!seen[i] && bg(i)) { seen[i] = 1; st.push(i); } };
