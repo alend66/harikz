@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HARIKZ | Travel, Trips, Packages & Rental – Enjoy the Ride, 24x7</title>
+<meta name="description" content="HARIKZ – travel, trips, packages and vehicle rental. 5, 7, 10, 12 and 17 seaters, 24x7. Scroll to take the ride. Call 8137037555.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- LIVING SKY -->
+<div id="sky"></div>
+<div id="stars"></div>
+<div id="sun"></div>
+<div id="moon"></div>
+<div id="clouds"><i></i><i></i><i></i></div>
+<div id="flyers" aria-hidden="true">
+  <div class="bird b1">⌣⌣</div><div class="bird b2">⌣⌣</div><div class="bird b3">⌣⌣</div>
+  <div class="plane">✈<span></span></div>
+  <div class="balloon"><i></i><b></b></div>
+</div>
+<div id="flies" aria-hidden="true"></div>
+<div id="progress"></div>
+
+<!-- TOP BAR + ODOMETER -->
+<header class="top">
+  <a href="#home" class="logo">HARIKZ<small>travels</small></a>
+  <div class="hud" aria-hidden="true">
+    <span class="hud-stop" id="hud-stop">Departure</span>
+    <span class="hud-km"><b id="hud-km">0000</b> km</span>
+  </div>
+  <a id="nav-call" class="callpill" href="tel:+918137037555">☎ 8137037555</a>
+</header>
+
+<!-- THE ROAD (fixed, you are driving) -->
+<div class="scene" aria-hidden="true">
+  <div class="layer l1" id="l1"><svg viewBox="0 0 1200 200" preserveAspectRatio="none"><path d="M0 200V110C120 50 220 90 340 100S560 30 700 70 960 130 1060 80 1160 70 1200 110V200Z"/></svg><svg viewBox="0 0 1200 200" preserveAspectRatio="none"><path d="M0 200V110C120 50 220 90 340 100S560 30 700 70 960 130 1060 80 1160 70 1200 110V200Z"/></svg></div>
+  <div class="layer l2" id="l2"><svg viewBox="0 0 1200 200" preserveAspectRatio="none"><path d="M0 200V130C140 90 260 150 400 120S640 70 780 110 1040 160 1130 120 1180 120 1200 130V200Z"/></svg><svg viewBox="0 0 1200 200" preserveAspectRatio="none"><path d="M0 200V130C140 90 260 150 400 120S640 70 780 110 1040 160 1130 120 1180 120 1200 130V200Z"/></svg></div>
+  <div class="layer l3" id="l3"><svg viewBox="0 0 1200 200" preserveAspectRatio="none"><path d="M0 200V150C100 120 240 170 380 150S620 120 760 150 1000 180 1100 150 1180 140 1200 150V200Z"/></svg><svg viewBox="0 0 1200 200" preserveAspectRatio="none"><path d="M0 200V150C100 120 240 170 380 150S620 120 760 150 1000 180 1100 150 1180 140 1200 150V200Z"/></svg></div>
+  <div class="road" id="road"></div>
+  <div class="van" id="van">
+    <div class="beam" id="beam"></div>
+    <div class="puffs"><i></i><i></i><i></i></div>
+    <canvas id="vanimg" width="1" height="1" role="img" aria-label="HARIKZ Force Traveller"></canvas>
+    <div class="rim" id="w1" style="left:24.6%;top:82.4%"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="#b9bdc2"/><circle cx="50" cy="50" r="40" fill="#8f949a"/><g fill="#2a2d31"><circle cx="50" cy="50" r="12"/><circle cx="50" cy="26" r="5"/><circle cx="73" cy="43" r="5"/><circle cx="64" cy="70" r="5"/><circle cx="36" cy="70" r="5"/><circle cx="27" cy="43" r="5"/></g></svg></div>
+    <div class="rim" id="w2" style="left:82.2%;top:82%"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="#b9bdc2"/><circle cx="50" cy="50" r="40" fill="#8f949a"/><g fill="#2a2d31"><circle cx="50" cy="50" r="12"/><circle cx="50" cy="26" r="5"/><circle cx="73" cy="43" r="5"/><circle cx="64" cy="70" r="5"/><circle cx="36" cy="70" r="5"/><circle cx="27" cy="43" r="5"/></g></svg></div>
+  </div>
+</div>
+
+<main>
+
+<!-- 00 DEPARTURE -->
+<section class="stop hero" id="home" data-stop="Departure">
+  <p class="hello rv">Travel · Trips · Packages · Rental</p>
+  <h1 class="rv">Just sit back<br>&amp; <em>enjoy the ride.</em></h1>
+  <p class="hero-sub rv">5 · 7 · 10 · 12 · 17 seaters &nbsp;—&nbsp; open 24×7</p>
+  <div class="cta rv">
+    <a id="hero-call" class="btn" href="tel:+918137037555">Call 8137037555</a>
+    <a id="hero-reserve" class="btn alt" href="#reserve">Book my seat</a>
+  </div>
+  <p class="drive">scroll to drive <span>→</span></p>
+</section>
+
+<!-- 01 WELCOME ABOARD -->
+<section class="stop board" id="welcome" data-stop="Boarding">
+  <div class="polas">
+    <figure class="pola p1 rv"><img src="hero.jpg" alt="HARIKZ Force Traveller van at sunset"><figcaption>our ride</figcaption></figure>
+    <figure class="pola p2 rv"><img src="hills.jpg" alt="Van on a misty hill road"><figcaption>your view</figcaption></figure>
+  </div>
+  <div class="note rv">
+    <span class="sign">Welcome aboard</span>
+    <h2>Every trip should feel like <em>the best part of the holiday.</em></h2>
+    <p>No stress, no rush. Tell us where you want to go, we'll bring the van, the comfort and the good vibes. Day or night, one call is all it takes.</p>
+    <p class="hand">— team HARIKZ</p>
+  </div>
+</section>
+
+<!-- 02 SERVICES -->
+<section class="stop services" id="services" data-stop="Services">
+  <div class="shead rv"><span class="sign">Stop 01</span><h2>Pick your <em>kind of journey</em></h2></div>
+  <div class="tags">
+    <div class="tagw t1 rv"><div class="tag"><small>TAG Nº 01</small><h3>Travel</h3><p>Airport, railway and outstation transfers, always on time.</p><span>→ HARIKZ</span></div></div>
+    <div class="tagw t2 rv"><div class="tag"><small>TAG Nº 02</small><h3>Trips</h3><p>Family, friends and group trips to hills, beaches and temples.</p><span>→ HARIKZ</span></div></div>
+    <div class="tagw t3 rv"><div class="tag"><small>TAG Nº 03</small><h3>Packages</h3><p>Hassle-free tour packages planned around your budget.</p><span>→ HARIKZ</span></div></div>
+    <div class="tagw t4 rv"><div class="tag"><small>TAG Nº 04</small><h3>Rental</h3><p>Vehicles on rent by the day, trip or week.</p><span>→ HARIKZ</span></div></div>
+  </div>
+</section>
+
+<!-- 03 FLEET -->
+<section class="stop fleet" id="fleet" data-stop="The Fleet">
+  <div class="shead rv"><span class="sign">Stop 02</span><h2>Choose your <em>boarding pass</em></h2></div>
+  <ul class="passes">
+    <li class="rv" style="--r:-1.2deg"><div class="pass"><div class="pl"><small>HARIKZ · BOARDING PASS</small><div class="seatbig"><b>05</b><span>seater</span></div><p>Couples &amp; small families</p><div class="route"><span>FROM <b>Anywhere</b></span><i>→</i><span>TO <b>Anywhere</b></span></div></div><div class="ps"><small>SEAT</small><b>05</b><div class="bar"></div><a href="#reserve">Reserve</a></div></div></li>
+    <li class="rv" style="--r:1deg"><div class="pass"><div class="pl"><small>HARIKZ · BOARDING PASS</small><div class="seatbig"><b>07</b><span>seater</span></div><p>Family trips</p><div class="route"><span>FROM <b>Anywhere</b></span><i>→</i><span>TO <b>Anywhere</b></span></div></div><div class="ps"><small>SEAT</small><b>07</b><div class="bar"></div><a href="#reserve">Reserve</a></div></div></li>
+    <li class="rv" style="--r:-.8deg"><div class="pass"><div class="pl"><small>HARIKZ · BOARDING PASS</small><div class="seatbig"><b>10</b><span>seater</span></div><p>Friends &amp; mid-size groups</p><div class="route"><span>FROM <b>Anywhere</b></span><i>→</i><span>TO <b>Anywhere</b></span></div></div><div class="ps"><small>SEAT</small><b>10</b><div class="bar"></div><a href="#reserve">Reserve</a></div></div></li>
+    <li class="rv" style="--r:1.2deg"><div class="pass"><div class="pl"><small>HARIKZ · BOARDING PASS</small><div class="seatbig"><b>12</b><span>seater</span></div><p>Group tours</p><div class="route"><span>FROM <b>Anywhere</b></span><i>→</i><span>TO <b>Anywhere</b></span></div></div><div class="ps"><small>SEAT</small><b>12</b><div class="bar"></div><a href="#reserve">Reserve</a></div></div></li>
+    <li class="rv" style="--r:-1deg"><div class="pass"><div class="pl"><small>HARIKZ · BOARDING PASS</small><div class="seatbig"><b>17</b><span>seater</span></div><p>Weddings, events &amp; big groups</p><div class="route"><span>FROM <b>Anywhere</b></span><i>→</i><span>TO <b>Anywhere</b></span></div></div><div class="ps"><small>SEAT</small><b>17</b><div class="bar"></div><a href="#reserve">Reserve</a></div></div></li>
+  </ul>
+</section>
+
+<!-- 04 POSTCARDS -->
+<section class="stop cards" id="postcards" data-stop="Postcards">
+  <div class="shead rv"><span class="sign">Stop 03</span><h2>Postcards <em>from the road</em></h2></div>
+  <div class="pcs">
+    <figure class="pc rv" style="--r:-2.5deg"><span class="tape"></span><div class="pcf"><iframe id="reel-embed-1" title="HARIKZ Instagram reel 1" src="https://www.instagram.com/reel/DWi8l3WEc4W/embed" loading="lazy" allowfullscreen></iframe></div><figcaption>enjoy the ride ✦ <a id="reel-link-1" href="https://www.instagram.com/reel/DWi8l3WEc4W/" target="_blank" rel="noopener">open on Instagram</a></figcaption></figure>
+    <figure class="pc rv" style="--r:2deg"><span class="tape"></span><div class="pcf"><iframe id="reel-embed-2" title="HARIKZ Instagram reel 2" src="https://www.instagram.com/reel/DSxfu3pkrwx/embed" loading="lazy" allowfullscreen></iframe></div><figcaption>memories in motion ✦ <a id="reel-link-2" href="https://www.instagram.com/reel/DSxfu3pkrwx/" target="_blank" rel="noopener">open on Instagram</a></figcaption></figure>
+    <figure class="pc rv" style="--r:-1.5deg"><span class="tape"></span><div class="pcf"><iframe id="post-embed" title="HARIKZ Instagram post" src="https://www.instagram.com/p/DdNlVB4ooAG/embed" loading="lazy" allowfullscreen></iframe></div><figcaption>travel with HARIKZ ✦ <a id="post-link" href="https://www.instagram.com/p/DdNlVB4ooAG/" target="_blank" rel="noopener">open on Instagram</a></figcaption></figure>
+    <figure class="pc rv" style="--r:2.5deg"><span class="tape"></span><div class="pcf"><iframe id="reel-embed-3" title="HARIKZ Instagram reel 3" src="https://www.instagram.com/reel/DYMjRzhSxW_/embed" loading="lazy" allowfullscreen></iframe></div><figcaption>on the open road ✦ <a id="reel-link-3" href="https://www.instagram.com/reel/DYMjRzhSxW_/" target="_blank" rel="noopener">open on Instagram</a></figcaption></figure>
+    <figure class="pc rv" style="--r:-2deg"><span class="tape"></span><div class="pcf"><iframe id="post-embed-2" title="HARIKZ Instagram post 2" src="https://www.instagram.com/p/DV8z0t1keww/embed" loading="lazy" allowfullscreen></iframe></div><figcaption>happy travellers ✦ <a id="post-link-2" href="https://www.instagram.com/p/DV8z0t1keww/" target="_blank" rel="noopener">open on Instagram</a></figcaption></figure>
+  </div>
+</section>
+
+<!-- 04b DESTINATIONS -->
+<section class="stop dest" id="destinations" data-stop="Destinations">
+  <div class="shead rv"><span class="sign">Stop 04</span><h2>Where shall we <em>take you?</em></h2></div>
+  <div class="stamps">
+    <a class="stamp rv" href="#reserve" style="--r:-3deg"><small>HILLS</small><h3>Munnar</h3><p>Tea gardens &amp; misty mornings</p></a>
+    <a class="stamp rv" href="#reserve" style="--r:2deg"><small>BACKWATERS</small><h3>Alleppey</h3><p>Houseboats &amp; calm canals</p></a>
+    <a class="stamp rv" href="#reserve" style="--r:-1.5deg"><small>FOREST</small><h3>Wayanad</h3><p>Waterfalls, trails &amp; wildlife</p></a>
+    <a class="stamp rv" href="#reserve" style="--r:3deg"><small>WILDLIFE</small><h3>Thekkady</h3><p>Spice farms &amp; Periyar lake</p></a>
+    <a class="stamp rv" href="#reserve" style="--r:-2deg"><small>BEACH</small><h3>Kovalam</h3><p>Sunsets by the sea</p></a>
+    <a class="stamp rv" href="#reserve" style="--r:1.5deg"><small>TEMPLES</small><h3>Guruvayur</h3><p>Pilgrim &amp; temple circuits</p></a>
+  </div>
+  <p class="fine rv">Somewhere else in mind? Custom routes anywhere, just call.</p>
+</section>
+
+<!-- 04c WHY HARIKZ -->
+<section class="stop why" id="why" data-stop="Why HARIKZ">
+  <div class="shead rv"><span class="sign">Stop 05</span><h2>Why ride <em>with us</em></h2></div>
+  <div class="perks">
+    <div class="perk rv"><b>24×7</b><h3>Always open</h3><p>Early flight or midnight train, we are awake.</p></div>
+    <div class="perk rv"><b>05–17</b><h3>Every group size</h3><p>From couples to wedding parties, one fleet.</p></div>
+    <div class="perk rv"><b>A/C</b><h3>Comfort first</h3><p>Clean, well-kept vans with room for luggage.</p></div>
+    <div class="perk rv"><b>1 call</b><h3>Zero hassle</h3><p>Tell us the plan, we handle the rest.</p></div>
+  </div>
+</section>
+
+<!-- 04d FAQ -->
+<section class="stop faq" id="faq" data-stop="Good to know">
+  <div class="shead rv"><span class="sign">Stop 06</span><h2>Quick <em>pit stop</em> answers</h2></div>
+  <div class="qa">
+    <details class="rv"><summary>How do I book a vehicle?</summary><p>Call or WhatsApp 8137037555, or fill in the reservation pass below and we will confirm on WhatsApp.</p></details>
+    <details class="rv"><summary>Which vehicles do you have?</summary><p>5, 7, 10, 12 and 17 seaters, suited to everything from couples to large groups.</p></details>
+    <details class="rv"><summary>Do you operate at night?</summary><p>Yes, HARIKZ is open 24×7 for transfers, trips and rentals.</p></details>
+    <details class="rv"><summary>Can you plan a full tour package?</summary><p>Absolutely. Share your dates, budget and group size and we will plan the route with you.</p></details>
+    <details class="rv"><summary>Is rental available by the day?</summary><p>Yes, by the day, per trip or by the week.</p></details>
+  </div>
+</section>
+
+<!-- 05 NIGHT STOP / RESERVE -->
+<section class="stop reserve" id="reserve" data-stop="Night Stop">
+  <div class="shead rv"><span class="sign">Stop 07</span><h2>Save your seat <em>under the stars</em></h2></div>
+  <form id="booking-form" class="pass formpass rv">
+    <div class="pl formgrid">
+      <small>HARIKZ · RESERVATION</small>
+      <label>Passenger<input id="b-name" placeholder="Your name" required></label>
+      <label>From → To<input id="b-place" placeholder="Pickup → Destination" required></label>
+      <label>Date<input id="b-date" type="date" required></label>
+      <label>Vehicle<select id="b-seat"><option>5 seater</option><option>7 seater</option><option>10 seater</option><option>12 seater</option><option>17 seater</option></select></label>
+    </div>
+    <div class="ps"><small>CONFIRM</small><div class="bar"></div><button id="b-submit" class="btn" type="submit">Send on WhatsApp</button></div>
+  </form>
+</section>
+
+<!-- 06 THE SIGN -->
+<section class="stop final" id="contact" data-stop="Journey's End">
+  <div class="open rv">OPEN 24×7</div>
+  <a id="contact-call" class="neon rv" href="tel:+918137037555">8137037555</a>
+  <p class="rv">Travel · Trips · Packages · Rental</p>
+  <div class="cta rv">
+    <a id="contact-wa" class="btn" href="https://wa.me/918137037555" target="_blank" rel="noopener">WhatsApp us</a>
+    <a id="contact-ig" class="btn alt" href="https://www.instagram.com/p/DdNlVB4ooAG/" target="_blank" rel="noopener">Follow on Instagram</a>
+  </div>
+  <small class="copy">© 2026 HARIKZ — see you on the road.</small>
+</section>
+</main>
+
+<a id="float-wa" class="fwa" href="https://wa.me/918137037555" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">💬</a>
+<script src="script.js"></script>
+</body>
+</html>
