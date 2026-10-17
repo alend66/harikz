@@ -48,7 +48,7 @@ function palette(p) {
 const root = document.documentElement.style;
 const sun = $('#sun'), moon = $('#moon'), clouds = $('#clouds'), starsEl = $('#stars');
 const l1 = $('#l1'), l2 = $('#l2'), l3 = $('#l3'), road = $('#road');
-const w1 = $('#w1'), w2 = $('#w2'), beam = $('#beam');
+const w1 = $('#w1'), w2 = $('#w2'), beam = $('#beam'), lamp = $('#lamp'), roadLight = $('#roadlight');
 const kmEl = $('#hud-km'), stopEl = $('#hud-stop');
 
 const skyEl = $('#sky'), sceneEl = document.querySelector('.scene');
@@ -94,7 +94,10 @@ function frame() {
   setT(w1, rot); setT(w2, rot);
 
   // headlights at night
-  beam.style.opacity = (clamp((p - 0.74) / 0.1) * 0.9).toFixed(2);
+  const beamOp = (clamp((p - 0.74) / 0.1) * 0.95).toFixed(2);
+  beam.style.opacity = beamOp;
+  if (lamp) lamp.style.opacity = beamOp;
+  if (roadLight) roadLight.style.opacity = beamOp;
 
   // odometer
   const km = String(Math.round(p * 1240)).padStart(4, '0');

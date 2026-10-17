@@ -50,7 +50,58 @@ a{color:inherit}
 .van canvas{display:block;width:100%;height:auto}
 .rim{position:absolute;width:8.6%;aspect-ratio:1;margin:-4.3% 0 0 -4.3%;border-radius:50%;overflow:hidden}.rim svg{display:block;width:100%;height:100%}
 .wheel{transform-box:fill-box;transform-origin:center}
-.beam{position:absolute;left:94%;top:56%;width:46vw;height:90px;background:linear-gradient(90deg,rgba(255,236,170,.75),transparent);clip-path:polygon(0 35%,100% 0,100% 100%,0 65%);opacity:0;transition:opacity .4s}
+
+/* Real Headlight Beam - Originates directly from the glowing headlight lamp of the Force Traveller */
+.van .beam{
+  position:absolute;
+  left:95.5%;
+  top:58.5%;
+  transform-origin:0% 50%;
+  transform:translateY(-50%) rotate(3.5deg);
+  width:clamp(180px,38vw,440px);
+  height:clamp(60px,14vw,120px);
+  background:radial-gradient(ellipse at 0% 50%, rgba(255,255,240,0.95) 0%, rgba(255,240,150,0.6) 12%, rgba(255,225,110,0.25) 35%, rgba(255,210,80,0.06) 55%, transparent 72%);
+  clip-path:polygon(0% 48%, 100% 5%, 100% 95%, 0% 52%);
+  -webkit-mask-image:linear-gradient(90deg, #000 0%, #000 30%, rgba(0,0,0,0.4) 55%, transparent 75%);
+  mask-image:linear-gradient(90deg, #000 0%, #000 30%, rgba(0,0,0,0.4) 55%, transparent 75%);
+  filter:blur(2.5px);
+  opacity:0;
+  transition:opacity .4s ease-out;
+  pointer-events:none;
+  z-index:4;
+}
+
+/* Headlight Lamp Bulb Glow - Positioned right over the physical Traveller headlight */
+.van .lamp-glow{
+  position:absolute;
+  left:94.8%;
+  top:57.2%;
+  width:3.2%;
+  aspect-ratio:1;
+  border-radius:50%;
+  background:radial-gradient(circle,#ffffff 30%,#fff4b8 65%,rgba(255,230,120,0) 100%);
+  box-shadow:0 0 16px 8px rgba(255,245,170,.95),0 0 36px 16px rgba(255,215,90,.6);
+  opacity:0;
+  transition:opacity .4s ease-out;
+  pointer-events:none;
+  z-index:6;
+}
+
+/* Road Surface Illumination Pool */
+.van .road-light{
+  position:absolute;
+  left:96%;
+  top:84%;
+  width:clamp(120px,30vw,300px);
+  height:22%;
+  border-radius:50%;
+  background:radial-gradient(ellipse at 35% 50%,rgba(255,245,170,.6) 0%,rgba(255,225,120,.22) 45%,transparent 75%);
+  filter:blur(6px);
+  opacity:0;
+  transition:opacity .4s ease-out;
+  pointer-events:none;
+  z-index:2;
+}
 
 /* Traveller photo backdrops */
 .hero::before,.final::before{content:"";position:absolute;z-index:-1;pointer-events:none;background-size:cover;background-position:center;-webkit-mask-image:radial-gradient(ellipse at center,#000 30%,transparent 72%);mask-image:radial-gradient(ellipse at center,#000 30%,transparent 72%)}
@@ -246,6 +297,13 @@ main{position:relative;z-index:10;padding-bottom:30vh}
   .logo{font-size:1.25rem}
   .callpill{padding:8px 13px;font-size:.78rem;box-shadow:2px 2px 0 var(--dk)}
   .van{left:3vw;width:clamp(170px,56vw,260px);bottom:2vh}
+  .van .beam{
+    left:95.5% !important;
+    top:58.5% !important;
+    width:clamp(110px, 32vw, 200px) !important;
+    height:clamp(36px, 11vw, 65px) !important;
+    filter:blur(2px) !important;
+  }
   .layer{bottom:3vh}.road{height:4vh}
   .fwa{width:48px;height:48px;font-size:1.3rem;right:12px;bottom:calc(var(--sceneH) + 8px)}
   main{padding-bottom:24vh}
