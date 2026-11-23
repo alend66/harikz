@@ -4,7 +4,7 @@ const $$ = s => Array.from(document.querySelectorAll(s));
 /* ---------- All 6 AI-World Travel Photos ---------- */
 const PHOTOS = [
   'photos/harikz-travel-hub-poster.jpg?v=ai2',
-  'photos/forest-road-traveller.jpg?v=ai2',
+  'photos/forest-road-traveller.jpg?v=ai3',
   'photos/misty-hill-drive.jpg?v=ai2',
   'photos/mountain-highway-stop.jpg?v=ai2',
   'photos/monsoon-pitstop-force.jpg?v=ai2',

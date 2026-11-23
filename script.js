@@ -176,12 +176,3 @@ addEventListener('message', e => {
   };
   img.src = 'traveller-side.jpg';
 })();
-
-/* ---------- interactive touch-swipe 6-photo travel deck ---------- */
-if (typeof window.initHarikzDeck === 'function') {
-  window.initHarikzDeck({
-    container: '#home-deck',
-    basePath: 'album/photos/',
-    showFullAlbumLink: true
-  });
-}
