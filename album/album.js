@@ -4,7 +4,7 @@ const $$ = s => Array.from(document.querySelectorAll(s));
 /* ---------- Album photo metadata for fullscreen road-trip viewer ---------- */
 const PHOTOS = [
   {
-    src: 'photos/harikz-travel-hub-poster.jpg',
+    src: 'photos/harikz-travel-hub-poster.jpg?v=ai2',
     title: 'Harikz Travel Hub',
     caption: 'Explore · Travel · Repeat — Avittathur, Irinjalakuda',
     stamp: 'IRINJALAKUDA',
@@ -12,7 +12,7 @@ const PHOTOS = [
     wa: 'Hello HARIKZ, I saw your Travel Album and want to book a trip!'
   },
   {
-    src: 'photos/forest-road-traveller.jpg',
+    src: 'photos/forest-road-traveller.jpg?v=ai2',
     title: 'Into the Green Trails',
     caption: 'Under the green forest canopy',
     stamp: 'FOREST TRAIL',
@@ -20,7 +20,7 @@ const PHOTOS = [
     wa: 'Hello HARIKZ, I would like to book the Force Traveller (KL 52 G 5468) for a group trip!'
   },
   {
-    src: 'photos/misty-hill-drive.jpg',
+    src: 'photos/misty-hill-drive.jpg?v=ai2',
     title: 'Above the Morning Mist',
     caption: 'Chasing clouds up the ghats',
     stamp: 'MISTY HILLS',
@@ -28,7 +28,7 @@ const PHOTOS = [
     wa: 'Hello HARIKZ, I want to plan a misty hill station trip!'
   },
   {
-    src: 'photos/mountain-highway-stop.jpg',
+    src: 'photos/mountain-highway-stop.jpg?v=ai2',
     title: 'Pit Stop at the Summit',
     caption: 'Chai stop with a mountain view',
     stamp: 'HIGH RANGE',
@@ -36,7 +36,7 @@ const PHOTOS = [
     wa: 'Hello HARIKZ, I want to book KL 45 Z 9292 for a mountain trip!'
   },
   {
-    src: 'photos/monsoon-pitstop-force.jpg',
+    src: 'photos/monsoon-pitstop-force.jpg?v=ai2',
     title: 'Monsoon Miles Ahead',
     caption: 'Fuelled up & rain-ready',
     stamp: 'MONSOON RUN',
@@ -44,7 +44,7 @@ const PHOTOS = [
     wa: 'Hello HARIKZ, I would like to book Force Traveller KL 45 D 7718!'
   },
   {
-    src: 'photos/fleet-duo-ready.jpg',
+    src: 'photos/fleet-duo-ready.jpg?v=ai2',
     title: 'Your Fleet, Your Pace',
     caption: 'Big group or quick ride — ready 24×7',
     stamp: 'FLEET LINEUP',

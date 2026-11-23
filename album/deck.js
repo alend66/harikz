@@ -173,7 +173,7 @@
       card.innerHTML = `
         <span class="tdeck-tape" aria-hidden="true"></span>
         <div class="tdeck-img-wrap">
-          <img src="${basePath}${p.file}" alt="${p.title} ${p.em} — ${p.caption}" draggable="false" loading="${idx < 2 ? 'eager' : 'lazy'}">
+          <img src="${basePath}${p.file}?v=ai2" alt="${p.title} ${p.em} — ${p.caption}" draggable="false" loading="${idx < 2 ? 'eager' : 'lazy'}">
           <span class="tdeck-sheen" aria-hidden="true"></span>
           <span class="tdeck-swipe-stamp is-next" aria-hidden="true">NEXT STOP →</span>
           <span class="tdeck-swipe-stamp is-prev" aria-hidden="true">← PREV STOP</span>
@@ -195,7 +195,7 @@
       th.className = 'tdeck-thumb';
       th.setAttribute('role', 'tab');
       th.setAttribute('aria-label', `Photo ${idx + 1}: ${p.title} ${p.em}`);
-      th.innerHTML = `<img src="${basePath}${p.file}" alt="" loading="lazy"><span>0${idx + 1}</span>`;
+      th.innerHTML = `<img src="${basePath}${p.file}?v=ai2" alt="" loading="lazy"><span>0${idx + 1}</span>`;
       th.addEventListener('click', () => {
         dismissHint();
         goTo(idx);
