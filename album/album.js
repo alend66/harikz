@@ -244,26 +244,42 @@ addEventListener('keydown', e => {
   else if (e.key === ' ') { e.preventDefault(); setPlay(!playing); }
 });
 
-// Live 1:1 finger swipe inside fullscreen lightbox
-let lbTouchX = 0, lbDragging = false;
+// Live 1:1 finger swipe left/right to navigate + swipe down to close
+let lbTouchX = 0, lbTouchY = 0, lbAxis = null, lbDragging = false;
 $('#lb-stage').addEventListener('touchstart', e => {
   if (!e.touches.length) return;
   lbTouchX = e.touches[0].clientX;
+  lbTouchY = e.touches[0].clientY;
+  lbAxis = null;
   lbDragging = true;
   lbFrame.style.transition = 'none';
 }, { passive: true });
 $('#lb-stage').addEventListener('touchmove', e => {
   if (!lbDragging || !e.touches.length) return;
   const dx = e.touches[0].clientX - lbTouchX;
-  lbFrame.style.transform = `translate3d(${(dx * 0.65).toFixed(1)}px,0,0) rotate(${(dx * 0.035).toFixed(2)}deg)`;
+  const dy = e.touches[0].clientY - lbTouchY;
+  if (!lbAxis && Math.hypot(dx, dy) > 8) {
+    lbAxis = Math.abs(dx) >= Math.abs(dy) ? 'x' : 'y';
+  }
+  if (lbAxis === 'x') {
+    lbFrame.style.transform = `translate3d(${(dx * 0.7).toFixed(1)}px,0,0) rotate(${(dx * 0.035).toFixed(2)}deg)`;
+    lbFrame.style.opacity = '1';
+  } else if (lbAxis === 'y' && dy > 0) {
+    lbFrame.style.transform = `translate3d(0,${(dy * 0.75).toFixed(1)}px,0) scale(${Math.max(0.84, 1 - dy / 700).toFixed(3)})`;
+    lbFrame.style.opacity = String(Math.max(0.35, 1 - dy / 340).toFixed(2));
+  }
 }, { passive: true });
 $('#lb-stage').addEventListener('touchend', e => {
   if (!lbDragging) return;
   lbDragging = false;
   const dx = e.changedTouches[0].clientX - lbTouchX;
-  lbFrame.style.transition = 'transform 0.3s cubic-bezier(0.22, 1.25, 0.36, 1)';
+  const dy = e.changedTouches[0].clientY - lbTouchY;
+  lbFrame.style.transition = 'transform 0.3s cubic-bezier(0.22, 1.25, 0.36, 1), opacity 0.25s ease';
   lbFrame.style.transform = '';
-  if (Math.abs(dx) > 45) showSlide(dx < 0 ? curIdx + 1 : curIdx - 1);
+  lbFrame.style.opacity = '1';
+  if (lbAxis === 'x' && Math.abs(dx) > 45) showSlide(dx < 0 ? curIdx + 1 : curIdx - 1);
+  else if (lbAxis === 'y' && dy > 95) closeLightbox();
+  lbAxis = null;
 });
 
 /* ---------- Driving Force Traveller cutout ---------- */
