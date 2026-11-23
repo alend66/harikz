@@ -11,18 +11,9 @@ const PHOTOS = [
   'photos/fleet-duo-ready.jpg?v=ai2'
 ];
 
-const SLOTS = [
-  { x: 0, y: 0, r: -1.4, s: 1.0, o: 1 },
-  { x: 18, y: 12, r: 4.2, s: 0.945, o: 0.96 },
-  { x: -16, y: 22, r: -5.2, s: 0.89, o: 0.9 },
-  { x: 10, y: 30, r: 7.0, s: 0.84, o: 0.78 },
-  { x: -8, y: 36, r: -6.5, s: 0.79, o: 0.45 },
-  { x: 0, y: 40, r: 2.5, s: 0.75, o: 0 }
-];
-
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ---------- Living Sky & Driving Road Scene ---------- */
+/* ---------- Living Sky, Flyers & Fireflies ---------- */
 const stars = $('#stars');
 const small = innerWidth < 700;
 for (let i = 0; i < (small ? 28 : 50); i++) {
@@ -68,7 +59,7 @@ const skyEl = $('#sky'), sceneEl = $('.scene');
 const sun = $('#sun'), moon = $('#moon'), clouds = $('#clouds'), starsEl = $('#stars');
 const l1 = $('#l1'), l2 = $('#l2'), l3 = $('#l3'), road = $('#road');
 const w1 = $('#w1'), w2 = $('#w2'), beam = $('#beam'), lamp = $('#lamp'), roadLight = $('#roadlight');
-const prog = $('#progress'), vanEl = $('#van');
+const flyers = $('#flyers'), prog = $('#progress'), vanEl = $('#van');
 
 let MAX = 1, VW = innerWidth, VH = innerHeight, tiles = [0, 0, 0], lastQ = -1, lastY = scrollY;
 function measure() {
@@ -119,6 +110,11 @@ function frame() {
   const fo = clamp((p - 0.76) / 0.12);
   flies.style.opacity = fo.toFixed(2);
   flies.style.visibility = fo > 0 ? 'visible' : 'hidden';
+  if (flyers) {
+    const fl = 1 - clamp((p - 0.62) / 0.15);
+    flyers.style.opacity = fl.toFixed(2);
+    flyers.style.visibility = fl > 0 ? 'visible' : 'hidden';
+  }
 
   const dy = y - lastY;
   lastY = y;
@@ -136,168 +132,36 @@ addEventListener('load', () => { measure(); frame(); });
 measure();
 frame();
 
-/* ---------- Pure Touch-Swipe Photo Stack ---------- */
-const stage = $('#stack-stage');
-const countEl = $('#s-count');
-let active = 0;
-let animating = false;
-const cards = [];
-
-PHOTOS.forEach((src, i) => {
-  const c = document.createElement('div');
-  c.className = 'p-card';
-  c.innerHTML = `<div class="p-card-img"><img src="${src}" alt="HARIKZ photo ${i + 1}" draggable="false" loading="${i < 2 ? 'eager' : 'lazy'}"><span class="p-sheen" aria-hidden="true"></span></div>`;
-  stage.appendChild(c);
-  cards.push(c);
+/* ---------- Reveal Postcards on Scroll + Touch Sheen ---------- */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) {
+    e.target.classList.add('on');
+    io.unobserve(e.target);
+  }
+}), { threshold: 0.1 });
+$$('.rv').forEach((el, i) => {
+  el.style.transitionDelay = (i % 3) * 90 + 'ms';
+  io.observe(el);
 });
 
-const slotOf = i => (i - active + PHOTOS.length) % PHOTOS.length;
+$$('.album-pc').forEach(card => {
+  const idx = Number(card.dataset.index);
+  card.addEventListener('click', () => openLightbox(idx, false));
 
-function applyStack(prog = 0, immediate = false) {
-  countEl.textContent = `${String(active + 1).padStart(2, '0')} / 0${PHOTOS.length}`;
-  cards.forEach((card, i) => {
-    const s = slotOf(i);
-    const cur = SLOTS[Math.min(s, SLOTS.length - 1)];
-    const nxt = SLOTS[Math.max(0, s - 1)];
-    card.style.zIndex = String(PHOTOS.length - s + (s === 0 ? 10 : 0));
-    card.classList.toggle('is-top', s === 0);
-    if (s === 0 && prog > 0) return;
-    const t = s > 0 ? prog : 0;
-    const x = cur.x + (nxt.x - cur.x) * t;
-    const y = cur.y + (nxt.y - cur.y) * t;
-    const r = cur.r + (nxt.r - cur.r) * t;
-    const sc = cur.s + (nxt.s - cur.s) * t;
-    const op = cur.o + (nxt.o - cur.o) * t;
-    card.style.transition = immediate || prog > 0 ? 'none' : 'transform 0.52s cubic-bezier(0.22, 1.25, 0.36, 1), opacity 0.38s ease';
-    card.style.transform = `translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0) rotate(${r.toFixed(2)}deg) scale(${sc.toFixed(3)})`;
-    card.style.opacity = op.toFixed(3);
-  });
-}
-
-function stepCard(dir) {
-  if (animating) return;
-  animating = true;
-  const top = cards[active];
-  const flyX = dir > 0 ? -Math.min(460, innerWidth * 0.95) : Math.min(460, innerWidth * 0.95);
-  if (navigator.vibrate) navigator.vibrate(10);
-  top.style.transition = 'transform 0.36s cubic-bezier(0.2, 0.9, 0.3, 1), opacity 0.3s ease';
-  top.style.transform = `translate3d(${flyX}px,-20px,0) rotate(${dir > 0 ? -22 : 22}deg) scale(0.94)`;
-  top.style.opacity = '0';
-
-  active = (active + (dir > 0 ? 1 : -1) + PHOTOS.length) % PHOTOS.length;
-  countEl.textContent = `${String(active + 1).padStart(2, '0')} / 0${PHOTOS.length}`;
-  cards.forEach((c, i) => {
-    if (c === top) return;
-    const s = slotOf(i);
-    const slot = SLOTS[Math.min(s, SLOTS.length - 1)];
-    c.style.zIndex = String(PHOTOS.length - s + (s === 0 ? 10 : 0));
-    c.classList.toggle('is-top', s === 0);
-    c.style.transition = 'transform 0.5s cubic-bezier(0.22, 1.25, 0.36, 1), opacity 0.38s ease';
-    c.style.transform = `translate3d(${slot.x}px,${slot.y}px,0) rotate(${slot.r}deg) scale(${slot.s})`;
-    c.style.opacity = String(slot.o);
-  });
-  setTimeout(() => { applyStack(0, true); animating = false; }, 350);
-}
-
-let dragging = false, locked = null, sx = 0, sy = 0, lx = 0, lt = 0, vx = 0, pid = null, dragCard = null;
-stage.addEventListener('pointerdown', e => {
-  if (animating || (e.pointerType === 'mouse' && e.button !== 0)) return;
-  dragCard = cards[active];
-  dragging = true;
-  locked = null;
-  pid = e.pointerId;
-  sx = lx = e.clientX;
-  sy = e.clientY;
-  lt = performance.now();
-  vx = 0;
-  dragCard.classList.add('is-dragging');
-  dragCard.style.transition = 'none';
-  try { stage.setPointerCapture(pid); } catch (_) {}
+  const updateSheen = e => {
+    const r = card.getBoundingClientRect();
+    card.style.setProperty('--gx', `${(clamp((e.clientX - r.left) / r.width) * 100).toFixed(1)}%`);
+    card.style.setProperty('--gy', `${(clamp((e.clientY - r.top) / r.height) * 100).toFixed(1)}%`);
+  };
+  card.addEventListener('pointerdown', e => { card.classList.add('touching'); updateSheen(e); });
+  card.addEventListener('pointermove', e => { if (e.pointerType === 'mouse' || e.buttons > 0) updateSheen(e); });
+  const endTouch = () => card.classList.remove('touching');
+  card.addEventListener('pointerup', endTouch);
+  card.addEventListener('pointercancel', endTouch);
+  card.addEventListener('pointerleave', endTouch);
 });
 
-stage.addEventListener('pointermove', e => {
-  if (!dragging || !dragCard) return;
-  const dx = e.clientX - sx, dy = e.clientY - sy;
-  if (locked === null) {
-    if (Math.hypot(dx, dy) < 8) return;
-    if (e.pointerType === 'touch' && Math.abs(dy) > Math.abs(dx) * 1.15) {
-      dragging = false;
-      dragCard.classList.remove('is-dragging');
-      try { stage.releasePointerCapture(pid); } catch (_) {}
-      applyStack(0, false);
-      return;
-    }
-    locked = 'h';
-  }
-  if (locked === 'h') {
-    const now = performance.now();
-    const dt = Math.max(8, now - lt) / 1000;
-    vx = vx * 0.4 + ((e.clientX - lx) / dt) * 0.6;
-    lx = e.clientX;
-    lt = now;
-    const liftY = Math.max(-40, Math.min(34, dy * 0.35 - Math.abs(dx) * 0.06));
-    dragCard.style.transform = `translate3d(${dx.toFixed(1)}px,${liftY.toFixed(1)}px,0) rotate(${(dx * 0.068).toFixed(2)}deg) scale(1.02)`;
-    const rect = dragCard.getBoundingClientRect();
-    dragCard.style.setProperty('--gx', `${(((e.clientX - rect.left) / rect.width) * 100).toFixed(1)}%`);
-    dragCard.style.setProperty('--gy', `${(((e.clientY - rect.top) / rect.height) * 100).toFixed(1)}%`);
-    applyStack(Math.min(1, Math.abs(dx) / 140), false);
-  }
-});
-
-function endDrag(e) {
-  if (!dragging || !dragCard) return;
-  dragging = false;
-  dragCard.classList.remove('is-dragging');
-  try { if (stage.hasPointerCapture(pid)) stage.releasePointerCapture(pid); } catch (_) {}
-  const dx = e.clientX - sx, dy = e.clientY - sy;
-  if (Math.hypot(dx, dy) < 9) {
-    applyStack(0, false);
-    openLightbox(active, false);
-    return;
-  }
-  if (Math.abs(dx) > 65 || (Math.abs(vx) > 420 && Math.abs(dx) > 22)) stepCard(dx < 0 ? 1 : -1);
-  else applyStack(0, false);
-}
-stage.addEventListener('pointerup', endDrag);
-stage.addEventListener('pointercancel', endDrag);
-
-$('#s-prev').addEventListener('click', () => stepCard(-1));
-$('#s-next').addEventListener('click', () => stepCard(1));
-$('#s-play').addEventListener('click', () => openLightbox(active, true));
-applyStack(0, true);
-
-/* ---------- Pure 6-Photo Gallery Grid ---------- */
-const grid = $('#photo-grid');
-const tilts = [-1.8, 1.4, -1.2, 1.6, -1.5, 1.2];
-PHOTOS.forEach((src, i) => {
-  const btn = document.createElement('button');
-  btn.type = 'button';
-  btn.className = 'pg-tile';
-  btn.style.setProperty('--r', `${tilts[i % tilts.length]}deg`);
-  btn.setAttribute('aria-label', `Open photo ${i + 1}`);
-  btn.innerHTML = `<div class="pg-frame"><img src="${src}" alt="HARIKZ photo ${i + 1}" loading="lazy"><span class="p-sheen" aria-hidden="true"></span></div>`;
-  btn.addEventListener('click', () => openLightbox(i, false));
-  if (!reduceMotion) {
-    const baseR = `${tilts[i % tilts.length]}deg`;
-    const tiltTo = e => {
-      const r = btn.getBoundingClientRect();
-      const px = clamp((e.clientX - r.left) / r.width);
-      const py = clamp((e.clientY - r.top) / r.height);
-      btn.style.setProperty('--gx', `${(px * 100).toFixed(1)}%`);
-      btn.style.setProperty('--gy', `${(py * 100).toFixed(1)}%`);
-      btn.style.transform = `perspective(800px) rotateX(${((0.5 - py) * 10).toFixed(2)}deg) rotateY(${((px - 0.5) * 12).toFixed(2)}deg) scale(1.03)`;
-    };
-    const reset = () => { btn.style.transform = `rotate(${baseR})`; };
-    btn.addEventListener('pointerdown', tiltTo);
-    btn.addEventListener('pointermove', e => { if (e.pointerType === 'mouse' || e.buttons > 0) tiltTo(e); });
-    btn.addEventListener('pointerup', reset);
-    btn.addEventListener('pointercancel', reset);
-    btn.addEventListener('pointerleave', reset);
-  }
-  grid.appendChild(btn);
-});
-
-/* ---------- Minimal Fullscreen Photo Lightbox ---------- */
+/* ---------- Minimal Fullscreen Touch-Swipe Viewer ---------- */
 const lb = $('#lightbox');
 const lbImg = $('#lb-img');
 const lbFrame = $('#lb-frame');
@@ -380,7 +244,7 @@ addEventListener('keydown', e => {
   else if (e.key === ' ') { e.preventDefault(); setPlay(!playing); }
 });
 
-// Live 1:1 finger swipe inside lightbox
+// Live 1:1 finger swipe inside fullscreen lightbox
 let lbTouchX = 0, lbDragging = false;
 $('#lb-stage').addEventListener('touchstart', e => {
   if (!e.touches.length) return;
@@ -401,15 +265,6 @@ $('#lb-stage').addEventListener('touchend', e => {
   lbFrame.style.transform = '';
   if (Math.abs(dx) > 45) showSlide(dx < 0 ? curIdx + 1 : curIdx - 1);
 });
-
-// Support #photo-N deep links from homepage
-const hm = location.hash.match(/^#photo-(\d+)$/);
-if (hm) {
-  const idx = Math.max(0, Math.min(PHOTOS.length - 1, Number(hm[1]) - 1));
-  active = idx;
-  applyStack(0, true);
-  openLightbox(idx, false);
-}
 
 /* ---------- Driving Force Traveller cutout ---------- */
 (function () {

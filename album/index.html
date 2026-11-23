@@ -4,25 +4,30 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Album | HARIKZ</title>
-<meta name="description" content="HARIKZ Travel Photo Album.">
+<meta name="description" content="HARIKZ Travel Photo Album — postcards from the road.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Sans:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="album.css">
 </head>
 <body class="album-page">
 
-<!-- LIVING TRAVEL SKY -->
+<!-- LIVING SKY -->
 <div id="sky"></div>
 <div id="stars"></div>
 <div id="sun"></div>
 <div id="moon"></div>
 <div id="clouds"><i></i><i></i><i></i></div>
+<div id="flyers" aria-hidden="true">
+  <div class="bird b1">⌣⌣</div><div class="bird b2">⌣⌣</div><div class="bird b3">⌣⌣</div>
+  <div class="plane">✈<span></span></div>
+  <div class="balloon"><i></i><b></b></div>
+</div>
 <div id="flies" aria-hidden="true"></div>
 <div id="progress"></div>
 
-<!-- MINIMAL TOP BAR -->
+<!-- TOP BAR -->
 <header class="top">
   <a href="../" class="logo">HARIKZ<small>album</small></a>
   <a class="navpill" href="../">← Back</a>
@@ -45,23 +50,68 @@
   </div>
 </div>
 
-<main class="pure-album">
-  <!-- TOUCH-SWIPE PHOTO STACK -->
-  <section class="stack-sec" aria-label="Swipeable travel photo deck">
-    <div class="stack-stage" id="stack-stage"></div>
-    <div class="stack-bar">
-      <button type="button" class="s-btn" id="s-prev" aria-label="Previous photo">‹</button>
-      <span class="s-count" id="s-count">01 / 06</span>
-      <button type="button" class="s-btn" id="s-next" aria-label="Next photo">›</button>
-      <button type="button" class="s-play" id="s-play" aria-label="Play photo slideshow">▶</button>
+<!-- TAPED POLAROID ALBUM -->
+<main class="album-wrap">
+  <section class="stop cards album-sec" aria-label="HARIKZ Photo Album">
+    <div class="pcs">
+      <figure class="pc album-pc rv" data-index="0" style="--r:-2.5deg">
+        <span class="tape"></span>
+        <div class="pcf-photo">
+          <img src="photos/harikz-travel-hub-poster.jpg?v=ai2" alt="HARIKZ Travel Hub scenic highway" loading="eager">
+          <span class="p-sheen" aria-hidden="true"></span>
+        </div>
+        <figcaption>enjoy the ride ✦ <button type="button" class="pc-open" data-open="0">view photo</button></figcaption>
+      </figure>
+
+      <figure class="pc album-pc rv" data-index="1" style="--r:2deg">
+        <span class="tape"></span>
+        <div class="pcf-photo">
+          <img src="photos/forest-road-traveller.jpg?v=ai3" alt="HARIKZ Force Traveller coastal cliff sunset" loading="eager">
+          <span class="p-sheen" aria-hidden="true"></span>
+        </div>
+        <figcaption>coastal sunset ✦ <button type="button" class="pc-open" data-open="1">view photo</button></figcaption>
+      </figure>
+
+      <figure class="pc album-pc rv" data-index="2" style="--r:-1.5deg">
+        <span class="tape"></span>
+        <div class="pcf-photo">
+          <img src="photos/misty-hill-drive.jpg?v=ai2" alt="HARIKZ Tata Winger above misty dawn clouds" loading="lazy">
+          <span class="p-sheen" aria-hidden="true"></span>
+        </div>
+        <figcaption>misty ghats ✦ <button type="button" class="pc-open" data-open="2">view photo</button></figcaption>
+      </figure>
+
+      <figure class="pc album-pc rv" data-index="3" style="--r:2.5deg">
+        <span class="tape"></span>
+        <div class="pcf-photo">
+          <img src="photos/mountain-highway-stop.jpg?v=ai2" alt="HARIKZ Tata Winger mountain highway overlook" loading="lazy">
+          <span class="p-sheen" aria-hidden="true"></span>
+        </div>
+        <figcaption>on the open road ✦ <button type="button" class="pc-open" data-open="3">view photo</button></figcaption>
+      </figure>
+
+      <figure class="pc album-pc rv" data-index="4" style="--r:-2deg">
+        <span class="tape"></span>
+        <div class="pcf-photo">
+          <img src="photos/monsoon-pitstop-force.jpg?v=ai2" alt="HARIKZ Force Traveller twilight monsoon pit stop" loading="lazy">
+          <span class="p-sheen" aria-hidden="true"></span>
+        </div>
+        <figcaption>monsoon miles ✦ <button type="button" class="pc-open" data-open="4">view photo</button></figcaption>
+      </figure>
+
+      <figure class="pc album-pc rv" data-index="5" style="--r:1.8deg">
+        <span class="tape"></span>
+        <div class="pcf-photo">
+          <img src="photos/fleet-duo-ready.jpg?v=ai2" alt="HARIKZ Force Traveller and WagonR along Kerala backwaters" loading="lazy">
+          <span class="p-sheen" aria-hidden="true"></span>
+        </div>
+        <figcaption>happy travellers ✦ <button type="button" class="pc-open" data-open="5">view photo</button></figcaption>
+      </figure>
     </div>
   </section>
-
-  <!-- PURE 6-PHOTO GALLERY -->
-  <section class="photo-grid" id="photo-grid" aria-label="All travel photos"></section>
 </main>
 
-<!-- MINIMAL FULLSCREEN PHOTO LIGHTBOX -->
+<!-- MINIMAL FULLSCREEN TOUCH-SWIPE VIEWER -->
 <div class="lb" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
   <div class="lb-backdrop" id="lb-backdrop"></div>
   <div class="lb-shell">

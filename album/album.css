@@ -1,4 +1,4 @@
-/* ---- PURE PHOTOS TRAVEL ALBUM (/album/) ---- */
+/* ---- HARIKZ TAPED POSTCARD PHOTO ALBUM (/album/) ---- */
 .navpill {
   background: var(--paper);
   color: var(--dk);
@@ -18,76 +18,42 @@
   background: #fff;
 }
 
-.pure-album {
+.album-wrap {
   position: relative;
   z-index: 10;
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 13vh 5vw 28vh;
+  padding-bottom: 28vh;
 }
 
-/* ---- TOUCH-SWIPE PHOTO STACK ---- */
-.stack-sec {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 9vh;
+.album-sec {
+  padding-top: 13vh;
 }
 
-.stack-stage {
-  position: relative;
-  width: min(370px, 84vw);
-  aspect-ratio: 3 / 4.08;
-  touch-action: pan-y;
-  user-select: none;
-  -webkit-user-select: none;
-  cursor: grab;
+/* Exact Postcard Polaroid style from HARIKZ homepage, tailored for pure photos */
+.album-pc {
+  cursor: pointer;
+  transform-style: preserve-3d;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.stack-stage:active {
-  cursor: grabbing;
-}
-
-.p-card {
-  position: absolute;
-  inset: 0;
-  background: #fffdf6;
-  padding: 12px 12px 18px;
-  border-radius: 8px;
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.14);
-  transform-origin: 50% 80%;
-  will-change: transform, opacity;
-  pointer-events: none;
-}
-
-.p-card.is-top {
-  pointer-events: auto;
-}
-
-.p-card.is-dragging {
-  box-shadow: 0 34px 64px rgba(0, 0, 0, 0.4);
-}
-
-.p-card-img {
+.pcf-photo {
   position: relative;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 3 / 4;
   overflow: hidden;
-  border-radius: 4px;
   background: #141110;
 }
 
-.p-card-img img {
+.pcf-photo img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  pointer-events: none;
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.p-card.is-dragging .p-card-img img {
-  transform: scale(1.045);
+.album-pc:hover .pcf-photo img,
+.album-pc:active .pcf-photo img {
+  transform: scale(1.06);
 }
 
 .p-sheen {
@@ -99,107 +65,25 @@
   transition: opacity 0.25s;
 }
 
-.p-card.is-dragging .p-sheen,
-.p-card.is-top:hover .p-sheen,
-.pg-tile:hover .p-sheen {
+.album-pc:hover .p-sheen,
+.album-pc.touching .p-sheen {
   opacity: 1;
 }
 
-.stack-bar {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  margin-top: 38px;
-  background: rgba(251, 243, 226, 0.92);
-  color: var(--dk);
-  border: 2px solid var(--dk);
-  border-radius: 99px;
-  padding: 6px 10px;
-  box-shadow: 4px 4px 0 var(--dk);
-  backdrop-filter: blur(8px);
-}
-
-.s-btn,
-.s-play {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  border: 2px solid var(--dk);
-  background: var(--mustard);
-  color: var(--dk);
-  font-size: 1.4rem;
-  line-height: 1;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  transition: transform 0.2s, background 0.2s;
-}
-
-.s-play {
-  background: var(--terra);
-  color: #fff;
-  font-size: 0.92rem;
-}
-
-.s-btn:hover,
-.s-play:hover {
-  transform: scale(1.07);
-}
-
-.s-count {
-  font: 700 0.85rem monospace;
-  letter-spacing: 0.14em;
-  min-width: 68px;
-  text-align: center;
-}
-
-/* ---- PURE 6-PHOTO GRID ---- */
-.photo-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 28px;
-}
-
-.pg-tile {
-  position: relative;
-  padding: 10px 10px 14px;
-  border: 0;
-  border-radius: 8px;
-  background: #fffdf6;
-  box-shadow: 0 20px 38px rgba(0, 0, 0, 0.26);
-  cursor: pointer;
-  transform: rotate(var(--r, 0deg));
-  transition: transform 0.5s cubic-bezier(0.22, 1.28, 0.36, 1), box-shadow 0.4s;
-  transform-style: preserve-3d;
-}
-
-.pg-tile:hover {
-  box-shadow: 0 30px 54px rgba(0, 0, 0, 0.36);
-  z-index: 4;
-}
-
-.pg-frame {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 3 / 4;
-  overflow: hidden;
-  border-radius: 4px;
-  background: #141110;
-}
-
-.pg-frame img {
+.pc-open {
   display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+  margin: 6px auto 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: 700 0.66rem 'DM Sans', sans-serif;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--terra);
+  cursor: pointer;
 }
 
-.pg-tile:hover .pg-frame img {
-  transform: scale(1.07);
-}
-
-/* ---- MINIMAL FULLSCREEN PHOTO LIGHTBOX ---- */
+/* ---- MINIMAL FULLSCREEN TOUCH-SWIPE VIEWER ---- */
 .lb {
   position: fixed;
   inset: 0;
@@ -293,9 +177,9 @@
   aspect-ratio: 3 / 4;
   max-width: 100%;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 8px;
   background: #0a090d;
-  border: 6px solid #fffdf6;
+  border: 8px solid #fffdf6;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
 }
 
@@ -375,16 +259,9 @@
   transform: translateY(-2px);
 }
 
-@media (max-width: 860px) {
-  .photo-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
-  }
-}
-
 @media (max-width: 600px) {
-  .pure-album {
-    padding: 12vh 4vw 24vh;
+  .album-sec {
+    padding-top: 11vh;
   }
 
   .navpill {
@@ -393,24 +270,9 @@
     box-shadow: 2px 2px 0 var(--dk);
   }
 
-  .stack-stage {
-    width: min(300px, 78vw);
-  }
-
-  .p-card {
-    padding: 9px 9px 14px;
-  }
-
-  .photo-grid {
-    gap: 14px;
-  }
-
-  .pg-tile {
-    padding: 7px 7px 10px;
-  }
-
   .lb-frame {
     height: min(64svh, 520px);
+    border-width: 6px;
   }
 
   .lb-nav {
