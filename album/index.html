@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travel Album | HARIKZ Travel Hub – Moments from the Road</title>
+<meta name="description" content="Explore the HARIKZ Travel Hub photo album — real journeys across Kerala's forests, misty hill stations, mountain highways, and our 5 to 49 seater fleet.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="album.css">
+</head>
+<body class="album-page">
+
+<!-- LIVING SKY -->
+<div id="sky"></div>
+<div id="stars"></div>
+<div id="sun"></div>
+<div id="moon"></div>
+<div id="clouds"><i></i><i></i><i></i></div>
+<div id="flyers" aria-hidden="true">
+  <div class="bird b1">⌣⌣</div><div class="bird b2">⌣⌣</div><div class="bird b3">⌣⌣</div>
+  <div class="plane">✈<span></span></div>
+  <div class="balloon"><i></i><b></b></div>
+</div>
+<div id="flies" aria-hidden="true"></div>
+<div id="progress"></div>
+
+<!-- TOP BAR + LIVE TRIP ODOMETER -->
+<header class="top">
+  <a href="../" class="logo">HARIKZ<small>album</small></a>
+  <div class="hud" aria-hidden="true">
+    <span class="hud-stop" id="hud-stop">Avittathur Hub</span>
+    <span class="hud-km"><b id="hud-km">0000</b> km</span>
+  </div>
+  <div class="top-actions">
+    <a class="navpill" href="../">← Home</a>
+    <a class="callpill" href="tel:+918137037555">☎ Call Now</a>
+  </div>
+</header>
+
+<!-- THE DRIVING ROAD SCENE -->
+<div class="scene" aria-hidden="true">
+  <div class="layer l1" id="l1"><svg viewBox="0 0 1200 200" preserveAspectRatio="none"><path d="M0 200V110C120 50 220 90 340 100S560 30 700 70 960 130 1060 80 1160 70 1200 110V200Z"/></svg><svg viewBox="0 0 1200 200" preserveAspectRatio="none"><path d="M0 200V110C120 50 220 90 340 100S560 30 700 70 960 130 1060 80 1160 70 1200 110V200Z"/></svg></div>
+  <div class="layer l2" id="l2"><svg viewBox="0 0 1200 200" preserveAspectRatio="none"><path d="M0 200V130C140 90 260 150 400 120S640 70 780 110 1040 160 1130 120 1180 120 1200 130V200Z"/></svg><svg viewBox="0 0 1200 200" preserveAspectRatio="none"><path d="M0 200V130C140 90 260 150 400 120S640 70 780 110 1040 160 1130 120 1180 120 1200 130V200Z"/></svg></div>
+  <div class="layer l3" id="l3"><svg viewBox="0 0 1200 200" preserveAspectRatio="none"><path d="M0 200V150C100 120 240 170 380 150S620 120 760 150 1000 180 1100 150 1180 140 1200 150V200Z"/></svg><svg viewBox="0 0 1200 200" preserveAspectRatio="none"><path d="M0 200V150C100 120 240 170 380 150S620 120 760 150 1000 180 1100 150 1180 140 1200 150V200Z"/></svg></div>
+  <div class="road" id="road"></div>
+  <div class="van" id="van">
+    <div class="beam" id="beam"></div>
+    <div class="lamp-glow" id="lamp"></div>
+    <div class="road-light" id="roadlight"></div>
+    <div class="puffs"><i></i><i></i><i></i></div>
+    <canvas id="vanimg" width="1" height="1" role="img" aria-label="HARIKZ Force Traveller"></canvas>
+    <div class="rim" id="w1" style="left:24.6%;top:82.4%"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="#b9bdc2"/><circle cx="50" cy="50" r="40" fill="#8f949a"/><g fill="#2a2d31"><circle cx="50" cy="50" r="12"/><circle cx="50" cy="26" r="5"/><circle cx="73" cy="43" r="5"/><circle cx="64" cy="70" r="5"/><circle cx="36" cy="70" r="5"/><circle cx="27" cy="43" r="5"/></g></svg></div>
+    <div class="rim" id="w2" style="left:82.2%;top:82%"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="#b9bdc2"/><circle cx="50" cy="50" r="40" fill="#8f949a"/><g fill="#2a2d31"><circle cx="50" cy="50" r="12"/><circle cx="50" cy="26" r="5"/><circle cx="73" cy="43" r="5"/><circle cx="64" cy="70" r="5"/><circle cx="36" cy="70" r="5"/><circle cx="27" cy="43" r="5"/></g></svg></div>
+  </div>
+</div>
+
+<main class="album-main">
+  <!-- ALBUM HERO -->
+  <section class="album-hero" data-stop="Album Departure">
+    <span class="sign rv">Travel Album · 06 Stops</span>
+    <h1 class="rv">Snapshots <em>from the open road.</em></h1>
+    <p class="album-sub rv">
+      Every mile tells a story — misty ghat climbs, forest highways, monsoon pit stops, and our 5 to 49 seater fleet ready 24×7 from Avittathur, Irinjalakuda.
+    </p>
+
+    <div class="cta album-cta rv">
+      <button id="play-roadtrip" class="btn" type="button">▶ Play Road-Trip Slideshow</button>
+      <a class="btn alt" href="../#reserve">Book Your Ride</a>
+    </div>
+
+    <!-- ROUTE MOOD FILTERS -->
+    <div class="album-filters rv" role="tablist" aria-label="Filter travel album stops">
+      <button type="button" class="af-pill active" data-filter="all" role="tab" aria-selected="true">All Stops <b>6</b></button>
+      <button type="button" class="af-pill" data-filter="fleet" role="tab" aria-selected="false">Fleet &amp; Hub <b>2</b></button>
+      <button type="button" class="af-pill" data-filter="hills" role="tab" aria-selected="false">Hill Stations <b>2</b></button>
+      <button type="button" class="af-pill" data-filter="forest" role="tab" aria-selected="false">Forest Trails <b>1</b></button>
+      <button type="button" class="af-pill" data-filter="road" role="tab" aria-selected="false">On the Road <b>1</b></button>
+    </div>
+
+    <p class="drive rv">scroll down the route <span>↓</span></p>
+  </section>
+
+  <!-- WINDING HIGHWAY ROUTE ALBUM -->
+  <section class="route-wrap" id="route-wrap" aria-label="Road trip photo timeline">
+    <!-- Dynamic SVG winding road drawn behind stops -->
+    <svg class="route-svg" id="route-svg" aria-hidden="true">
+      <path id="route-bg" class="route-path-bg" />
+      <path id="route-dash" class="route-path-dash" />
+      <path id="route-active" class="route-path-active" />
+      <g id="route-pin" class="route-pin">
+        <circle r="11" class="pin-halo" />
+        <circle r="5.5" class="pin-core" />
+      </g>
+    </svg>
+
+    <div class="route-stops" id="route-stops">
+      <!-- STOP 01 -->
+      <article class="rstop rv" data-index="0" data-cat="fleet" data-stop="Avittathur Hub" data-km="000">
+        <div class="mile-badge">
+          <span>KM 000</span>
+          <b>STOP 01</b>
+        </div>
+        <div class="rstop-media">
+          <figure class="travel-card" data-tilt style="--rot:-2.4deg">
+            <span class="tape t-left"></span>
+            <span class="tape t-right"></span>
+            <div class="tc-frame">
+              <img src="photos/harikz-travel-hub-poster.jpg" alt="HARIKZ Travel Hub Avittathur Irinjalakuda — 5 seater to 49 seater 24x7 booking poster" loading="eager">
+              <span class="tc-sheen" aria-hidden="true"></span>
+              <span class="tc-zoom-hint">Click to explore ⤢</span>
+            </div>
+            <figcaption>
+              <span class="hand-cap">Explore · Travel · Repeat</span>
+              <span class="plate-tag">5 – 49 SEATERS</span>
+            </figcaption>
+            <div class="ink-stamp" aria-hidden="true"><span>IRINJALAKUDA</span><small>24×7 HUB</small></div>
+          </figure>
+        </div>
+        <div class="rstop-note">
+          <div class="journal-card">
+            <span class="j-meta">DEPARTURE BASE · AVITTATHUR, IRINJALAKUDA</span>
+            <h2>Harikz <em>Travel Hub</em></h2>
+            <p>Safe, comfortable, and budget-friendly rides for every occasion — airport pickups, hill stations, beaches, temples, and full tour packages from 5-seater cars up to 49-seater luxury buses.</p>
+            <div class="j-tags">
+              <span>Airport Pickup</span>
+              <span>Hill &amp; Beach Trips</span>
+              <span>24×7 Service</span>
+            </div>
+            <div class="j-actions">
+              <button type="button" class="j-btn open-lb" data-open="0">View Fullscreen</button>
+              <a class="j-link" href="https://wa.me/918137037555?text=Hello%20HARIKZ%2C%20I%20saw%20your%20Travel%20Album%20and%20want%20to%20book%20a%20trip!" target="_blank" rel="noopener">Book a Trip →</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- STOP 02 -->
+      <article class="rstop flip rv" data-index="1" data-cat="forest" data-stop="Forest Trail" data-km="048">
+        <div class="mile-badge">
+          <span>KM 048</span>
+          <b>STOP 02</b>
+        </div>
+        <div class="rstop-media">
+          <figure class="travel-card" data-tilt style="--rot:2.1deg">
+            <span class="tape t-center"></span>
+            <div class="tc-frame">
+              <img src="photos/forest-road-traveller.jpg" alt="White Force Tempo Traveller KL 52 G 5468 parked along a lush forest road" loading="lazy">
+              <span class="tc-sheen" aria-hidden="true"></span>
+              <span class="tc-zoom-hint">Click to explore ⤢</span>
+            </div>
+            <figcaption>
+              <span class="hand-cap">Under the green forest canopy</span>
+              <span class="plate-tag">KL 52 G 5468</span>
+            </figcaption>
+            <div class="ink-stamp teal" aria-hidden="true"><span>FOREST TRAIL</span><small>WAYANAD · ATHIRAPPILLY</small></div>
+          </figure>
+        </div>
+        <div class="rstop-note">
+          <div class="journal-card">
+            <span class="j-meta">SCENIC DRIVE · WESTERN GHATS CANOPY</span>
+            <h2>Into the <em>Green Trails</em></h2>
+            <p>Quiet forest roads, towering teak trees, and cool mountain breeze rolling past wide panoramic windows. Spacious group seating built for long nature escapes and waterfall trails.</p>
+            <div class="j-tags">
+              <span>Force Traveller</span>
+              <span>Panoramic Windows</span>
+              <span>Group Comfort</span>
+            </div>
+            <div class="j-actions">
+              <button type="button" class="j-btn open-lb" data-open="1">View Fullscreen</button>
+              <a class="j-link" href="https://wa.me/918137037555?text=Hello%20HARIKZ%2C%20I%20would%20like%20to%20book%20the%20Force%20Traveller%20for%20a%20forest%20group%20trip!" target="_blank" rel="noopener">Reserve Traveller →</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- STOP 03 -->
+      <article class="rstop rv" data-index="2" data-cat="hills" data-stop="Misty Ghats" data-km="112">
+        <div class="mile-badge">
+          <span>KM 112</span>
+          <b>STOP 03</b>
+        </div>
+        <div class="rstop-media">
+          <figure class="travel-card" data-tilt style="--rot:-1.9deg">
+            <span class="tape t-left"></span>
+            <span class="tape t-right"></span>
+            <div class="tc-frame">
+              <img src="photos/misty-hill-drive.jpg" alt="White Tata Winger KL 45 Z 9292 driving along a misty fog-covered hill station road" loading="lazy">
+              <span class="tc-sheen" aria-hidden="true"></span>
+              <span class="tc-zoom-hint">Click to explore ⤢</span>
+            </div>
+            <figcaption>
+              <span class="hand-cap">Chasing clouds up the ghats</span>
+              <span class="plate-tag">KL 45 Z 9292</span>
+            </figcaption>
+            <div class="ink-stamp" aria-hidden="true"><span>MISTY HILLS</span><small>ELEV. 1,600M</small></div>
+          </figure>
+        </div>
+        <div class="rstop-note">
+          <div class="journal-card">
+            <span class="j-meta">CLOUD LINE · EARLY MORNING CLIMB</span>
+            <h2>Above the <em>Morning Mist</em></h2>
+            <p>When the road disappears into cool silver fog and every hairpin curve feels like flying. Experienced hill-station drivers who know every bend of Munnar, Vagamon, and Ooty.</p>
+            <div class="j-tags">
+              <span>Hill Station Ready</span>
+              <span>Tata Winger</span>
+              <span>Fog &amp; Ghat Experts</span>
+            </div>
+            <div class="j-actions">
+              <button type="button" class="j-btn open-lb" data-open="2">View Fullscreen</button>
+              <a class="j-link" href="https://wa.me/918137037555?text=Hello%20HARIKZ%2C%20I%20want%20to%20plan%20a%20misty%20hill%20station%20trip!" target="_blank" rel="noopener">Plan Hill Trip →</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- STOP 04 -->
+      <article class="rstop flip rv" data-index="3" data-cat="hills" data-stop="High Range" data-km="176">
+        <div class="mile-badge">
+          <span>KM 176</span>
+          <b>STOP 04</b>
+        </div>
+        <div class="rstop-media">
+          <figure class="travel-card" data-tilt style="--rot:2.5deg">
+            <span class="tape t-center"></span>
+            <div class="tc-frame">
+              <img src="photos/mountain-highway-stop.jpg" alt="HARIKZ Tata Winger KL 45 Z 9292 paused at a sunny mountain-view highway stop" loading="lazy">
+              <span class="tc-sheen" aria-hidden="true"></span>
+              <span class="tc-zoom-hint">Click to explore ⤢</span>
+            </div>
+            <figcaption>
+              <span class="hand-cap">Chai stop with a mountain view</span>
+              <span class="plate-tag">KL 45 Z 9292</span>
+            </figcaption>
+            <div class="ink-stamp teal" aria-hidden="true"><span>HIGH RANGE</span><small>OPEN SKIES</small></div>
+          </figure>
+        </div>
+        <div class="rstop-note">
+          <div class="journal-card">
+            <span class="j-meta">MOUNTAIN HIGHWAY · BLUE SKY CRUISE</span>
+            <h2>Pit Stop at <em>the Summit</em></h2>
+            <p>Clear mountain skies, sweeping valley views, and unhurried meal stops whenever your group wants to stretch, snap photos, or grab hot roadside tea along the highway.</p>
+            <div class="j-tags">
+              <span>Custom Stops</span>
+              <span>Family Friendly</span>
+              <span>A/C Cabin</span>
+            </div>
+            <div class="j-actions">
+              <button type="button" class="j-btn open-lb" data-open="3">View Fullscreen</button>
+              <a class="j-link" href="https://wa.me/918137037555?text=Hello%20HARIKZ%2C%20I%20want%20to%20book%20KL%2045%20Z%209292%20for%20a%20mountain%20trip!" target="_blank" rel="noopener">Book This Ride →</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- STOP 05 -->
+      <article class="rstop rv" data-index="4" data-cat="road" data-stop="Monsoon Pit Stop" data-km="230">
+        <div class="mile-badge">
+          <span>KM 230</span>
+          <b>STOP 05</b>
+        </div>
+        <div class="rstop-media">
+          <figure class="travel-card" data-tilt style="--rot:-2.2deg">
+            <span class="tape t-left"></span>
+            <span class="tape t-right"></span>
+            <div class="tc-frame">
+              <img src="photos/monsoon-pitstop-force.jpg" alt="HARIKZ Force Traveller KL 45 D 7718 refueling in the Kerala monsoon rain" loading="lazy">
+              <span class="tc-sheen" aria-hidden="true"></span>
+              <span class="tc-zoom-hint">Click to explore ⤢</span>
+            </div>
+            <figcaption>
+              <span class="hand-cap">Fuelled up &amp; rain-ready</span>
+              <span class="plate-tag">KL 45 D 7718</span>
+            </figcaption>
+            <div class="ink-stamp" aria-hidden="true"><span>MONSOON RUN</span><small>ALL WEATHER</small></div>
+          </figure>
+        </div>
+        <div class="rstop-note">
+          <div class="journal-card">
+            <span class="j-meta">RAIN OR SHINE · HIGHWAY PIT STOP</span>
+            <h2>Monsoon <em>Miles Ahead</em></h2>
+            <p>Nothing beats a Kerala monsoon drive inside a clean, well-maintained Force Traveller. Topped up, spotless, and ready for midnight airport drops or multi-day outstation tours.</p>
+            <div class="j-tags">
+              <span>Force Traveller</span>
+              <span>All-Weather Fleet</span>
+              <span>Day &amp; Night Runs</span>
+            </div>
+            <div class="j-actions">
+              <button type="button" class="j-btn open-lb" data-open="4">View Fullscreen</button>
+              <a class="j-link" href="https://wa.me/918137037555?text=Hello%20HARIKZ%2C%20I%20would%20like%20to%20book%20Force%20Traveller%20KL%2045%20D%207718!" target="_blank" rel="noopener">Book KL 45 D 7718 →</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- STOP 06 -->
+      <article class="rstop flip rv" data-index="5" data-cat="fleet" data-stop="Fleet Lineup" data-km="295">
+        <div class="mile-badge">
+          <span>KM 295</span>
+          <b>STOP 06</b>
+        </div>
+        <div class="rstop-media">
+          <figure class="travel-card" data-tilt style="--rot:1.8deg">
+            <span class="tape t-center"></span>
+            <div class="tc-frame">
+              <img src="photos/fleet-duo-ready.jpg" alt="HARIKZ Force Traveller KL 45 D 7718 and white Suzuki WagonR KL 45 AA 0924 parked side by side" loading="lazy">
+              <span class="tc-sheen" aria-hidden="true"></span>
+              <span class="tc-zoom-hint">Click to explore ⤢</span>
+            </div>
+            <figcaption>
+              <span class="hand-cap">Big group or quick ride — ready 24×7</span>
+              <span class="plate-tag">KL 45 D 7718 · KL 45 AA 0924</span>
+            </figcaption>
+            <div class="ink-stamp teal" aria-hidden="true"><span>FLEET LINEUP</span><small>READY TO ROLL</small></div>
+          </figure>
+        </div>
+        <div class="rstop-note">
+          <div class="journal-card">
+            <span class="j-meta">EVERY GROUP SIZE · READY ON CALL</span>
+            <h2>Your Fleet, <em>Your Pace</em></h2>
+            <p>Whether it's a nimble 5-seater WagonR for a swift airport run or our flagship HARIKZ Force Traveller for friends and family holidays — every vehicle rolls out sparkling clean.</p>
+            <div class="j-tags">
+              <span>5 Seater Car</span>
+              <span>12–17 Seater Traveller</span>
+              <span>20–49 Seater Buses</span>
+            </div>
+            <div class="j-actions">
+              <button type="button" class="j-btn open-lb" data-open="5">View Fullscreen</button>
+              <a class="j-link" href="../#fleet">See All Boarding Passes →</a>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ALBUM FOOTER / CTA -->
+  <section class="stop album-outro" data-stop="Next Journey">
+    <div class="outro-card rv">
+      <span class="sign">Next Stop · Your Trip</span>
+      <h2>Want your crew in <em>our next album?</em></h2>
+      <p>Tell us your pickup spot, dates, and group size — we’ll bring the ride, the comfort, and the road-trip vibes.</p>
+      <div class="cta">
+        <a class="btn" href="https://wa.me/918137037555?text=Hello%20HARIKZ%2C%20I%20just%20checked%20your%20Travel%20Album%20and%20want%20to%20book%20a%20ride!" target="_blank" rel="noopener">WhatsApp +91 81370 37555</a>
+        <a class="btn alt" href="../">← Back to Main Ride</a>
+      </div>
+    </div>
+    <small class="copy">© 2026 HARIKZ Travel Hub · Avittathur, Irinjalakuda — see you on the road.</small>
+  </section>
+</main>
+
+<!-- FULLSCREEN ROAD-TRIP SLIDESHOW / LIGHTBOX -->
+<div class="lb" id="lightbox" role="dialog" aria-modal="true" aria-label="HARIKZ Travel Album Viewer" hidden>
+  <div class="lb-backdrop" id="lb-backdrop"></div>
+  <div class="lb-shell">
+    <div class="lb-top">
+      <div class="lb-route-info">
+        <span class="lb-badge" id="lb-stop">STOP 01 / 06</span>
+        <span class="lb-plate" id="lb-plate">5 – 49 SEATERS</span>
+      </div>
+      <div class="lb-controls">
+        <button type="button" class="lb-pill" id="lb-play" aria-label="Toggle road-trip slideshow">▶ Auto-Drive</button>
+        <button type="button" class="lb-close" id="lb-close" aria-label="Close viewer">✕</button>
+      </div>
+    </div>
+
+    <div class="lb-progress-track" aria-hidden="true">
+      <div class="lb-progress-fill" id="lb-timer"></div>
+    </div>
+
+    <div class="lb-stage" id="lb-stage">
+      <button type="button" class="lb-nav lb-prev" id="lb-prev" aria-label="Previous photo">‹</button>
+      <div class="lb-frame">
+        <img id="lb-img" src="" alt="" class="lb-img">
+        <div class="lb-stamp" id="lb-stamp">IRINJALAKUDA</div>
+      </div>
+      <button type="button" class="lb-nav lb-next" id="lb-next" aria-label="Next photo">›</button>
+    </div>
+
+    <div class="lb-meta">
+      <div class="lb-text">
+        <h3 id="lb-title">Harikz Travel Hub</h3>
+        <p id="lb-cap">Explore · Travel · Repeat</p>
+      </div>
+      <a id="lb-wa" class="btn lb-wa" href="https://wa.me/918137037555" target="_blank" rel="noopener">Book This Ride</a>
+    </div>
+
+    <div class="lb-strip" id="lb-strip" aria-label="Album filmstrip"></div>
+  </div>
+</div>
+
+<a class="fwa" href="https://wa.me/918137037555" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">💬</a>
+<script src="album.js"></script>
+</body>
+</html>

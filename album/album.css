@@ -1,0 +1,927 @@
+/* ---- HARIKZ TRAVEL ALBUM ---- */
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navpill {
+  background: var(--paper);
+  color: var(--dk);
+  padding: 11px 18px;
+  border-radius: 50px;
+  font-weight: 700;
+  text-decoration: none;
+  border: 2px solid var(--dk);
+  box-shadow: 3px 3px 0 var(--dk);
+  transition: 0.25s;
+  font-size: 0.88rem;
+}
+
+.navpill:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--dk);
+  background: #fff;
+}
+
+.album-main {
+  position: relative;
+  z-index: 10;
+  padding-bottom: 28vh;
+}
+
+/* ---- ALBUM HERO ---- */
+.album-hero {
+  position: relative;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 17vh 6vw 6vh;
+  text-align: center;
+}
+
+.album-hero h1 {
+  font-size: clamp(2.8rem, 8.2vw, 6.8rem);
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  transition: color 0.3s;
+}
+
+.album-sub {
+  max-width: 660px;
+  margin: 24px auto 32px;
+  font-size: clamp(1rem, 1.5vw, 1.18rem);
+  font-weight: 500;
+  color: var(--ink);
+  opacity: 0.9;
+}
+
+.album-cta {
+  justify-content: center;
+}
+
+/* ---- FILTER PILLS ---- */
+.album-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 38px auto 0;
+}
+
+.af-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 50px;
+  border: 2px solid var(--dk);
+  background: var(--paper);
+  color: var(--dk);
+  font: 700 0.82rem 'DM Sans', sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 var(--dk);
+  transition: transform 0.22s, background 0.22s, color 0.22s, box-shadow 0.22s;
+}
+
+.af-pill b {
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 99px;
+  background: rgba(43, 29, 20, 0.12);
+  font-size: 0.72rem;
+}
+
+.af-pill:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--dk);
+}
+
+.af-pill.active {
+  background: var(--dk);
+  color: var(--mustard);
+}
+
+.af-pill.active b {
+  background: var(--terra);
+  color: #fff;
+}
+
+.album-hero .drive {
+  margin-top: 44px;
+}
+
+.album-hero .drive span {
+  animation: bobDown 1.3s ease-in-out infinite;
+}
+
+@keyframes bobDown {
+  50% { transform: translateY(8px); }
+}
+
+/* ---- WINDING ROUTE TIMELINE ---- */
+.route-wrap {
+  position: relative;
+  max-width: 1220px;
+  margin: 2vh auto 0;
+  padding: 4vh 5vw 6vh;
+}
+
+.route-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
+}
+
+.route-path-bg {
+  fill: none;
+  stroke: rgba(43, 29, 20, 0.26);
+  stroke-width: 14;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.route-path-dash {
+  fill: none;
+  stroke: rgba(251, 243, 226, 0.72);
+  stroke-width: 2.5;
+  stroke-dasharray: 12 14;
+  stroke-linecap: round;
+}
+
+.route-path-active {
+  fill: none;
+  stroke: var(--mustard);
+  stroke-width: 5;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 8px rgba(240, 178, 62, 0.65));
+}
+
+.route-pin .pin-halo {
+  fill: rgba(217, 99, 59, 0.35);
+  animation: pinPulse 1.8s ease-out infinite;
+}
+
+.route-pin .pin-core {
+  fill: var(--terra);
+  stroke: #fff;
+  stroke-width: 2.5;
+}
+
+@keyframes pinPulse {
+  0% { r: 8; opacity: 0.9; }
+  100% { r: 22; opacity: 0; }
+}
+
+.route-stops {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 110px;
+}
+
+.rstop {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) 110px minmax(0, 0.95fr);
+  align-items: center;
+  gap: 28px;
+}
+
+.rstop.hidden {
+  display: none;
+}
+
+.rstop .rstop-media {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.rstop .mile-badge {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: center;
+}
+
+.rstop .rstop-note {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.rstop.flip .rstop-media {
+  grid-column: 3;
+  justify-content: flex-start;
+}
+
+.rstop.flip .rstop-note {
+  grid-column: 1;
+}
+
+/* Highway Green Mile Marker */
+.mile-badge {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 86px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #0f6b4a;
+  color: #fff;
+  border: 3px solid #fff;
+  outline: 3px solid #0f6b4a;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.24);
+  text-align: center;
+  transition: transform 0.4s cubic-bezier(0.3, 1.4, 0.5, 1), background 0.3s;
+}
+
+.mile-badge span {
+  font: 700 0.62rem 'DM Sans', monospace;
+  letter-spacing: 0.16em;
+  opacity: 0.85;
+}
+
+.mile-badge b {
+  font: 900 0.86rem 'Fraunces', serif;
+  letter-spacing: 0.08em;
+  margin-top: 2px;
+}
+
+.rstop.on .mile-badge {
+  transform: scale(1.04);
+}
+
+/* ---- 3D POLAROID TRAVEL CARD ---- */
+.travel-card {
+  position: relative;
+  width: min(410px, 100%);
+  background: #fffdf6;
+  padding: 14px 14px 66px;
+  border-radius: 4px;
+  box-shadow: 0 26px 48px rgba(0, 0, 0, 0.28), 0 4px 12px rgba(0, 0, 0, 0.12);
+  transform: rotate(var(--rot, -2deg));
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.22, 1.28, 0.36, 1), box-shadow 0.4s;
+  cursor: pointer;
+}
+
+.travel-card:hover {
+  box-shadow: 0 34px 60px rgba(0, 0, 0, 0.36);
+  z-index: 6;
+}
+
+/* Masking tape strips */
+.travel-card .tape {
+  position: absolute;
+  top: -15px;
+  width: 96px;
+  height: 28px;
+  background: rgba(240, 178, 62, 0.78);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16);
+  z-index: 4;
+  pointer-events: none;
+}
+
+.travel-card .tape.t-left {
+  left: 14%;
+  transform: rotate(-10deg);
+}
+
+.travel-card .tape.t-right {
+  right: 14%;
+  transform: rotate(9deg);
+}
+
+.travel-card .tape.t-center {
+  left: 50%;
+  width: 118px;
+  transform: translateX(-50%) rotate(-2.5deg);
+}
+
+.tc-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: #171311;
+  border-radius: 2px;
+}
+
+.tc-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.01);
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s;
+}
+
+.travel-card:hover .tc-frame img {
+  transform: scale(1.075) translate3d(0, -4px, 0);
+}
+
+.tc-sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle at var(--gx, 50%) var(--gy, 30%), rgba(255, 246, 210, 0.32), transparent 62%);
+  transition: opacity 0.35s;
+}
+
+.travel-card:hover .tc-sheen {
+  opacity: 1;
+}
+
+.tc-zoom-hint {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  background: rgba(20, 14, 10, 0.78);
+  color: #fff6d2;
+  padding: 6px 12px;
+  border-radius: 99px;
+  font: 700 0.68rem 'DM Sans', sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.travel-card:hover .tc-zoom-hint {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.travel-card figcaption {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.hand-cap {
+  font: 700 1.48rem/1.05 'Caveat', cursive;
+  color: var(--dk);
+}
+
+.plate-tag {
+  flex-shrink: 0;
+  background: #ffd34e;
+  color: #151515;
+  border: 2px solid #151515;
+  border-radius: 5px;
+  padding: 2px 7px;
+  font: 700 0.64rem/1.2 monospace;
+  letter-spacing: 0.08em;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.18);
+}
+
+/* Passport Rubber Ink Stamp with slam-down animation */
+.ink-stamp {
+  position: absolute;
+  top: 22px;
+  right: -18px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 13px;
+  border: 3px double var(--terra);
+  border-radius: 8px;
+  color: var(--terra);
+  background: rgba(255, 253, 246, 0.9);
+  font-family: 'DM Sans', sans-serif;
+  text-transform: uppercase;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.16);
+  transform: rotate(12deg) scale(1.65);
+  opacity: 0;
+  transition: transform 0.55s cubic-bezier(0.22, 1.5, 0.36, 1) 0.25s, opacity 0.35s 0.25s;
+  pointer-events: none;
+}
+
+.ink-stamp.teal {
+  color: var(--teal);
+  border-color: var(--teal);
+}
+
+.ink-stamp span {
+  font-weight: 700;
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+}
+
+.ink-stamp small {
+  font-size: 0.54rem;
+  letter-spacing: 0.15em;
+  opacity: 0.85;
+  margin-top: 2px;
+}
+
+.rstop.on .ink-stamp {
+  transform: rotate(10deg) scale(1);
+  opacity: 0.96;
+}
+
+/* ---- COMPANION TRAVEL JOURNAL CARD ---- */
+.journal-card {
+  background: var(--paper);
+  color: var(--dk);
+  border: 2px solid var(--dk);
+  border-radius: 10px;
+  padding: 34px 32px;
+  box-shadow: 7px 7px 0 var(--dk);
+  transition: transform 0.35s;
+}
+
+.journal-card:hover {
+  transform: translateY(-4px);
+}
+
+.j-meta {
+  display: block;
+  font: 700 0.64rem 'DM Sans', sans-serif;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #8b6a3c;
+  margin-bottom: 12px;
+}
+
+.journal-card h2 {
+  font-size: clamp(1.9rem, 3.2vw, 2.7rem);
+  margin-bottom: 14px;
+  color: var(--dk);
+}
+
+.journal-card p {
+  font-size: 0.98rem;
+  line-height: 1.65;
+  margin-bottom: 20px;
+}
+
+.j-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+.j-tags span {
+  padding: 5px 12px;
+  border-radius: 99px;
+  background: var(--kraft);
+  border: 1.5px solid rgba(43, 29, 20, 0.24);
+  font: 700 0.7rem 'DM Sans', sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.j-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  border-top: 2px dashed #cdb98f;
+  padding-top: 18px;
+}
+
+.j-btn {
+  background: var(--teal);
+  color: #fff;
+  border: 2px solid var(--dk);
+  border-radius: 99px;
+  padding: 10px 18px;
+  font: 700 0.8rem 'DM Sans', sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 var(--dk);
+  transition: 0.22s;
+}
+
+.j-btn:hover {
+  background: var(--terra);
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--dk);
+}
+
+.j-link {
+  font: 700 0.88rem 'DM Sans', sans-serif;
+  color: var(--terra);
+  text-decoration: none;
+  border-bottom: 2px solid currentColor;
+  padding-bottom: 2px;
+  transition: opacity 0.2s;
+}
+
+.j-link:hover {
+  opacity: 0.72;
+}
+
+/* ---- ALBUM OUTRO ---- */
+.album-outro {
+  text-align: center;
+  padding-top: 8vh;
+}
+
+.outro-card {
+  max-width: 780px;
+  margin: 0 auto;
+  background: var(--paper);
+  color: var(--dk);
+  border: 2px solid var(--dk);
+  border-radius: 14px;
+  padding: 46px 36px;
+  box-shadow: 8px 8px 0 var(--dk);
+}
+
+.outro-card h2 {
+  font-size: clamp(2rem, 4.5vw, 3.3rem);
+  margin-bottom: 14px;
+}
+
+.outro-card p {
+  max-width: 520px;
+  margin: 0 auto 28px;
+  font-size: 1.02rem;
+}
+
+.outro-card .cta {
+  justify-content: center;
+}
+
+/* ---- FULLSCREEN ROAD-TRIP SLIDESHOW / LIGHTBOX ---- */
+.lb {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+}
+
+.lb[hidden] {
+  display: none;
+}
+
+.lb-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 13, 28, 0.9);
+  backdrop-filter: blur(10px);
+}
+
+.lb-shell {
+  position: relative;
+  z-index: 2;
+  width: min(980px, 100%);
+  max-height: 94svh;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #141219;
+  color: #f6ead6;
+  border: 2px solid rgba(255, 211, 107, 0.35);
+  border-radius: 18px;
+  padding: 16px 20px 18px;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.72);
+}
+
+.lb-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.lb-route-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.lb-badge {
+  background: #0f6b4a;
+  color: #fff;
+  padding: 5px 12px;
+  border-radius: 99px;
+  font: 700 0.7rem 'DM Sans', monospace;
+  letter-spacing: 0.16em;
+}
+
+.lb-plate {
+  background: #ffd34e;
+  color: #151515;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font: 700 0.72rem monospace;
+  letter-spacing: 0.08em;
+}
+
+.lb-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lb-pill {
+  background: var(--mustard);
+  color: var(--dk);
+  border: 2px solid var(--dk);
+  border-radius: 99px;
+  padding: 7px 14px;
+  font: 700 0.76rem 'DM Sans', sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.lb-pill.playing {
+  background: var(--terra);
+  color: #fff;
+}
+
+.lb-close {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.lb-close:hover {
+  background: var(--terra);
+}
+
+.lb-progress-track {
+  height: 3px;
+  width: 100%;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+.lb-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--mustard), var(--terra));
+}
+
+.lb-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-height: 260px;
+}
+
+.lb-frame {
+  position: relative;
+  height: min(56svh, 540px);
+  aspect-ratio: 3 / 4;
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #0a090d;
+  border: 6px solid #fffdf6;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+}
+
+.lb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform-origin: center center;
+}
+
+.lb-img.kenburns {
+  animation: lbKenBurns 5.6s ease-in-out forwards;
+}
+
+@keyframes lbKenBurns {
+  0% { transform: scale(1) translate3d(0, 0, 0); }
+  100% { transform: scale(1.1) translate3d(-1.5%, -1.5%, 0); }
+}
+
+.lb-stamp {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  padding: 5px 11px;
+  border: 2px double #ffd36b;
+  border-radius: 6px;
+  background: rgba(15, 13, 20, 0.72);
+  color: #ffd36b;
+  font: 700 0.65rem 'DM Sans', sans-serif;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transform: rotate(6deg);
+}
+
+.lb-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  background: rgba(14, 12, 18, 0.75);
+  color: #fff;
+  font-size: 1.9rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 4;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.lb-nav:hover {
+  background: var(--mustard);
+  color: var(--dk);
+}
+
+.lb-prev { left: 6px; }
+.lb-next { right: 6px; }
+
+.lb-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.lb-text h3 {
+  font-size: clamp(1.3rem, 2.4vw, 1.8rem);
+  color: #fff6d2;
+}
+
+.lb-text p {
+  font: 700 1.35rem/1.1 'Caveat', cursive;
+  color: #f0b23e;
+  margin-top: 2px;
+}
+
+.lb-wa {
+  padding: 11px 22px;
+  font-size: 0.85rem;
+  animation: none !important;
+}
+
+.lb-strip {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  overflow-x: auto;
+  padding-top: 4px;
+}
+
+.lb-thumb {
+  width: 48px;
+  height: 62px;
+  flex-shrink: 0;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #000;
+  opacity: 0.55;
+  cursor: pointer;
+  transition: opacity 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.lb-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.lb-thumb.active {
+  opacity: 1;
+  border-color: var(--mustard);
+  transform: translateY(-2px);
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 900px) {
+  .route-svg {
+    display: none;
+  }
+
+  .route-stops {
+    gap: 64px;
+  }
+
+  .rstop,
+  .rstop.flip {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .rstop .mile-badge,
+  .rstop .rstop-media,
+  .rstop .rstop-note,
+  .rstop.flip .rstop-media,
+  .rstop.flip .rstop-note {
+    grid-column: 1;
+    grid-row: auto;
+    justify-content: center;
+  }
+
+  .mile-badge {
+    justify-self: start;
+    flex-direction: row;
+    gap: 10px;
+    padding: 7px 14px;
+  }
+
+  .travel-card {
+    width: min(390px, 100%);
+    transform: rotate(0deg);
+  }
+
+  .ink-stamp {
+    right: 8px;
+  }
+}
+
+@media (max-width: 600px) {
+  .navpill {
+    padding: 8px 12px;
+    font-size: 0.76rem;
+    box-shadow: 2px 2px 0 var(--dk);
+  }
+
+  .album-hero {
+    padding: 14vh 5vw 4vh;
+  }
+
+  .af-pill {
+    padding: 8px 13px;
+    font-size: 0.72rem;
+  }
+
+  .journal-card {
+    padding: 24px 20px;
+    box-shadow: 5px 5px 0 var(--dk);
+  }
+
+  .outro-card {
+    padding: 32px 20px;
+  }
+
+  .lb-shell {
+    padding: 12px 12px 14px;
+  }
+
+  .lb-frame {
+    height: min(50svh, 420px);
+  }
+
+  .lb-nav {
+    width: 38px;
+    height: 38px;
+    font-size: 1.5rem;
+  }
+
+  .tc-zoom-hint {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lb-img.kenburns,
+  .route-pin .pin-halo,
+  .album-hero .drive span {
+    animation: none !important;
+  }
+}

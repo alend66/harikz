@@ -31,6 +31,8 @@ The idea: **you are on a road trip while you scroll.** A real Force Traveller dr
 | `script.js` | Sky/time-of-day colours, parallax, wheel rotation, reveal-on-scroll, WhatsApp booking, Instagram embed cropping, Traveller background removal |
 | `traveller-side.jpg` | Side view of the Traveller used for the driving vehicle (white background is removed in the browser with a canvas) |
 | `hero.jpg`, `hills.jpg` | Traveller photos used as background and in the welcome section |
+| `album/` | Separate interactive road-trip photo album (`album/index.html`, `album/album.css`, `album/album.js`) featuring a scroll-drawn winding highway map, 3D Polaroid tilt, passport ink stamp animations, route filters, and Ken Burns fullscreen slideshow |
+| `album/photos/` | All real HARIKZ fleet & road-trip photographs featured in the Travel Album |
 
 ## How it works (short)
 
