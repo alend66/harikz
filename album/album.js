@@ -264,25 +264,32 @@ const so = new IntersectionObserver(entries => entries.forEach(e => {
 }), { rootMargin: '-40% 0px -50% 0px' });
 $$('[data-stop]').forEach(s => so.observe(s));
 
-/* ---------- 3D Polaroid Tilt + Sunbeam Sheen ---------- */
+/* ---------- 3D Polaroid Tilt + Sunbeam Sheen (Mouse & Touch) ---------- */
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 if (!reduceMotion) {
   $$('[data-tilt]').forEach(card => {
     const baseRot = card.style.getPropertyValue('--rot') || '0deg';
-    card.addEventListener('pointermove', e => {
-      if (e.pointerType !== 'mouse') return;
+    const tiltTo = e => {
       const r = card.getBoundingClientRect();
-      const px = (e.clientX - r.left) / r.width;
-      const py = (e.clientY - r.top) / r.height;
-      const rx = (0.5 - py) * 11;
-      const ry = (px - 0.5) * 13;
+      const px = clamp((e.clientX - r.left) / r.width);
+      const py = clamp((e.clientY - r.top) / r.height);
+      const mult = e.pointerType === 'touch' ? 0.65 : 1;
+      const rx = (0.5 - py) * 11 * mult;
+      const ry = (px - 0.5) * 13 * mult;
       card.style.setProperty('--gx', `${(px * 100).toFixed(1)}%`);
       card.style.setProperty('--gy', `${(py * 100).toFixed(1)}%`);
       card.style.transform = `perspective(900px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) scale(1.03)`;
-    });
-    card.addEventListener('pointerleave', () => {
+    };
+    const resetTilt = () => {
       card.style.transform = `rotate(${baseRot})`;
+    };
+    card.addEventListener('pointerdown', tiltTo);
+    card.addEventListener('pointermove', e => {
+      if (e.pointerType === 'mouse' || e.buttons > 0) tiltTo(e);
     });
+    card.addEventListener('pointerup', resetTilt);
+    card.addEventListener('pointercancel', resetTilt);
+    card.addEventListener('pointerleave', resetTilt);
   });
 }
 
@@ -427,13 +434,44 @@ addEventListener('keydown', e => {
   }
 });
 
-// Touch swipe on mobile lightbox
-let touchX = 0;
-$('#lb-stage').addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+// Live 1:1 touch-drag swipe inside fullscreen lightbox
+const lbFrame = $('.lb-frame');
+let lbTouchX = 0, lbDragging = false;
+$('#lb-stage').addEventListener('touchstart', e => {
+  if (!e.touches.length) return;
+  lbTouchX = e.touches[0].clientX;
+  lbDragging = true;
+  lbFrame.style.transition = 'none';
+}, { passive: true });
+$('#lb-stage').addEventListener('touchmove', e => {
+  if (!lbDragging || !e.touches.length) return;
+  const dx = e.touches[0].clientX - lbTouchX;
+  lbFrame.style.transform = `translate3d(${(dx * 0.65).toFixed(1)}px, 0, 0) rotate(${(dx * 0.035).toFixed(2)}deg)`;
+}, { passive: true });
 $('#lb-stage').addEventListener('touchend', e => {
-  const dx = e.changedTouches[0].clientX - touchX;
+  if (!lbDragging) return;
+  lbDragging = false;
+  const dx = e.changedTouches[0].clientX - lbTouchX;
+  lbFrame.style.transition = 'transform 0.3s cubic-bezier(0.22, 1.25, 0.36, 1)';
+  lbFrame.style.transform = '';
   if (Math.abs(dx) > 45) showSlide(dx < 0 ? curIdx + 1 : curIdx - 1);
 });
+
+/* ---------- Initialize Top Touch-Swipe 6-Photo Deck + Hash Deep-Link ---------- */
+if (typeof window.initHarikzDeck === 'function') {
+  const albumDeck = window.initHarikzDeck({
+    container: '#album-deck',
+    basePath: 'photos/',
+    showFullAlbumLink: false,
+    onOpenPhoto: idx => openLightbox(idx, false)
+  });
+  const m = location.hash.match(/^#photo-(\d+)$/);
+  if (m) {
+    const idx = Math.max(0, Math.min(PHOTOS.length - 1, Number(m[1]) - 1));
+    if (albumDeck) albumDeck.goTo(idx);
+    openLightbox(idx, false);
+  }
+}
 
 /* ---------- Cut white backdrop out of driving Force Traveller ---------- */
 (function () {

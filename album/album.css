@@ -119,6 +119,12 @@
   animation: bobDown 1.3s ease-in-out infinite;
 }
 
+.deck-showcase {
+  position: relative;
+  z-index: 4;
+  padding: 2vh 5vw 6vh;
+}
+
 @keyframes bobDown {
   50% { transform: translateY(8px); }
 }

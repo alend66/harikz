@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="album/deck.css">
 </head>
 <body>
 
@@ -120,22 +121,10 @@
   </div>
 </section>
 
-<!-- 04a TRAVEL ALBUM PREVIEW -->
+<!-- 04a TRAVEL ALBUM TOUCH DECK -->
 <section class="stop album-preview" id="album" data-stop="Photo Album">
-  <div class="shead rv"><span class="sign">Travel Album</span><h2>Memories <em>from every mile</em></h2></div>
-  <a href="album/" class="album-teaser rv" aria-label="Open HARIKZ Travel Album with 6 real road-trip photos">
-    <div class="at-fan">
-      <figure class="at-pola a1"><img src="album/photos/forest-road-traveller.jpg" alt="HARIKZ Force Traveller on a forest road" loading="lazy"><figcaption>forest trail</figcaption></figure>
-      <figure class="at-pola a2"><img src="album/photos/harikz-travel-hub-poster.jpg" alt="HARIKZ Travel Hub Avittathur Irinjalakuda" loading="lazy"><figcaption>our fleet hub</figcaption></figure>
-      <figure class="at-pola a3"><img src="album/photos/misty-hill-drive.jpg" alt="HARIKZ van on a misty hill road" loading="lazy"><figcaption>misty ghats</figcaption></figure>
-    </div>
-    <div class="at-copy">
-      <span class="at-tag">06 REAL ROAD-TRIP PHOTOS · INTERACTIVE ROUTE</span>
-      <h3>Step inside our <em>Road-Trip Album</em></h3>
-      <p>Follow the winding highway through misty hill stations, green forest canopies, monsoon pit stops, and our 5 to 49 seater lineup — complete with passport stamps &amp; slideshow drive.</p>
-      <span class="btn at-btn">Open Travel Album →</span>
-    </div>
-  </a>
+  <div class="shead rv"><span class="sign">Travel Album · 06 Photos</span><h2>Swipe through <em>every mile</em></h2></div>
+  <div id="home-deck" class="tdeck rv"></div>
 </section>
 
 <!-- 04b DESTINATIONS -->
@@ -204,6 +193,7 @@
 </main>
 
 <a id="float-wa" class="fwa" href="https://wa.me/918137037555" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">💬</a>
+<script src="album/deck.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

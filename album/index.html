@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="deck.css">
 <link rel="stylesheet" href="album.css">
 </head>
 <body class="album-page">
@@ -80,7 +81,12 @@
       <button type="button" class="af-pill" data-filter="road" role="tab" aria-selected="false">On the Road <b>1</b></button>
     </div>
 
-    <p class="drive rv">scroll down the route <span>↓</span></p>
+    <p class="drive rv">swipe the deck or scroll the route <span>↓</span></p>
+  </section>
+
+  <!-- INTERACTIVE TOUCH-SWIPE 6-PHOTO DECK -->
+  <section class="deck-showcase" aria-label="Interactive swipeable travel photo stack">
+    <div id="album-deck" class="tdeck rv"></div>
   </section>
 
   <!-- WINDING HIGHWAY ROUTE ALBUM -->
@@ -392,6 +398,7 @@
 </div>
 
 <a class="fwa" href="https://wa.me/918137037555" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">💬</a>
+<script src="deck.js"></script>
 <script src="album.js"></script>
 </body>
 </html>
